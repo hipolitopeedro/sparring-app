@@ -46,6 +46,174 @@ body {
 }
 
 /* ==========================================================================
+   PUBLIC HOMEPAGE (SLIDESHOW INSPIRED)
+   ========================================================================== */
+.home-screen {
+  min-height: 100vh;
+}
+
+.home-screen.hidden {
+  display: none;
+}
+
+.home-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(17, 17, 17, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-grid);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.home-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.home-nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.15s ease;
+}
+
+.home-nav-links a:hover {
+  color: var(--accent-orange);
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.home-hero {
+  padding: 84px 0 68px 0;
+  border-bottom: 1px solid var(--border-grid);
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.home-hero-title {
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+}
+
+.home-section {
+  padding: 68px 0;
+  border-bottom: 1px solid var(--border-grid);
+}
+
+.home-section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-orange);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.home-section-title {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.home-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.home-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.home-icon-box {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--accent-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-orange);
+  margin-bottom: 16px;
+  background: rgba(255, 85, 0, 0.06);
+}
+
+.home-icon-box.red {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  background: rgba(217, 30, 42, 0.07);
+}
+
+.home-icon-box svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+}
+
+.auth-mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--border-strong);
+  margin-bottom: 16px;
+}
+
+.auth-mode-btn {
+  padding: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  border: none;
+  cursor: pointer;
+}
+
+.auth-mode-btn.active {
+  background: var(--accent-orange);
+  color: #ffffff;
+}
+
+@media (max-width: 960px) {
+  .home-hero,
+  .home-grid-4,
+  .home-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .home-nav-links {
+    display: none;
+  }
+  .home-nav {
+    padding: 14px 16px;
+  }
+  .home-hero {
+    padding: 48px 0;
+  }
+}
+
+/* ==========================================================================
    LOGIN / ACCESS SCREEN
    ========================================================================== */
 .login-screen {

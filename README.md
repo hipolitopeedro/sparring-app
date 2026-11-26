@@ -2,39 +2,38 @@
 
 Onde cada round conta.
 
-Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo SparRing, um ecossistema digital voltado para praticantes amadores, atletas de combate e academias de artes marciais. A plataforma separa a experiencia em dois portais independentes acessados a partir da tela de login: o Portal do Lutador (B2C) e o Portal da Academia e Treinador (B2B), sincronizados pelo mesmo estado local.
+Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo SparRing, um ecossistema digital voltado para praticantes amadores, atletas de combate e academias de artes marciais. A plataforma conta com uma Homepage publica de apresentacao e modelo de negocio, telas de cadastro e login separadas e dois portais independentes: o Portal do Lutador (B2C) e o Portal da Academia e Treinador (B2B).
 
-## Problema Resolvido
+## Estrutura de Navegacao
 
-- Desorganizacao: substitui grupos genericos de WhatsApp por agendamentos estruturados e confirmados.
-- Risco de lesoes: evita disparidade fisica critica (como 70 kg contra 100 kg) por meio de filtros tecnicos de peso e nivel.
-- Evasao nas academias: reduz a desmotivacao de alunos apos 6 meses usando gamificacao e acompanhamento de progresso.
-- Estagnacao tecnica: facilita o intercambio seguro com parceiros de outras escolas e estilos de luta.
+### Homepage Publica
 
-## Arquitetura em Dois Portais Separados
+- Apresentacao da proposta de valor e do mercado enderecavel de 5 milhoes de praticantes no Brasil (IBGE).
+- Secao O Desafio (desorganizacao, risco de lesoes 70 kg vs 100 kg, evasao apos 6 meses e estagnacao tecnica) e A Solucao SparRing.
+- Modelo de Negocio e Planos (Lutador Free, Lutador Premium R$ 14,90/mes, Academia B2B R$ 89,90/mes e taxa de intermediacao de 10% a 15% na locacao de tatames), projecao de 5 anos, matriz competitiva e visao de futuro.
+- Botoes diretos para cadastro de lutador, cadastro de academia ou login.
 
-### Tela de Login (Selecao de Perfil)
+### Cadastro e Login Separados
 
-- Sou Lutador (B2C): abre exclusivamente o Portal do Lutador, com configuracao de nome, modalidade principal e peso atual.
-- Academia ou Treinador (B2B): abre exclusivamente o Portal da Academia, com menus e ferramentas dedicados ao mestre e gestor do centro de treinamento.
+- Cadastro de Lutador (B2C): coleta nome completo, arte marcial (entre 11 modalidades), graduacao ou nivel (atualizado dinamicamente conforme a arte marcial escolhida), altura em cm, peso em kg, categoria (Amador ou Profissional), base (Canhoto ou Destro), bairro/cidade, e-mail e senha.
+- Cadastro de Academia ou Treinador (B2B): coleta nome da academia, mestre responsavel, bairro/cidade, estrutura de tatame/ringue, e-mail e senha.
 
 ### Portal do Lutador (B2C)
 
-- Matchmaking Inteligente em 11 modalidades: Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo, com filtro seguro de peso, intensidade alvo e pontuacao de compatibilidade.
-- Cartel Digital: registro persistente (localStorage) de rounds, horas de treino, intensidade media, parceiros diferentes e streak de consistencia.
-- Card Compartilhavel: visualizacao e exportacao em imagem PNG (via HTML5 Canvas) no estilo Strava para redes sociais.
-- Simulacao Freemium e Premium (R$ 14,90/mes): alternancia entre Free e Premium desbloqueando Insights de Oponente, Distribuicao Tecnica, Rastreio de Fadiga contra Overtraining e filtros exclusivos por base e nivel minimo.
-- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte (com split automatico de 10% a 15%) e inscricao em auloes de intercambio.
+- Matchmaking Inteligente em 11 modalidades (Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo), com filtro de peso, alerta de disparidade fisica e pontuacao de compatibilidade.
+- Cartel Digital: registro persistente (localStorage) de rounds, horas de treino, intensidade media, streak de consistencia e exportacao de Card Compartilhavel em PNG.
+- Insights e Fadiga (Premium): Insights de Oponente, Distribuicao Tecnica (Boxe, Chutes e Clinch), grafico SVG de Rastreio de Fadiga contra Overtraining e filtros exclusivos por canhotos e nivel minimo.
+- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte com split automatico e inscricao em auloes abertos.
 - Ajuda e Guia de Graduacoes: explicacao do nivelamento universal (N1 a N4), graus de Muay Thai (padrao CBMT de 9 graus de Kruang/Prajioud), faixas de Jiu-Jitsu (IBJJF/CBJJ), MMA, Sambo (FIAS), Capoeira, Boxe, Kickboxing, Judo, Wrestling, Karate e Taekwondo.
 
 ### Portal da Academia e Treinador (B2B)
 
-- Visao Geral: painel de indicadores com alunos ativos, taxa de retencao de 6 meses, validacoes pendentes, receita liquida de tatames e alertas prioritarios.
-- Validar Alunos: fila para aprovar ou recusar peso e graduacao declarados, ativando automaticamente o selo Validado Mestre no Portal do Lutador.
-- Ranking e Evasao (Churn): monitoramento de assiduidade com filtro para alunos com risco de abandono e envio de lembrete de treino.
-- Gestao de Tatames: publicacao e remocao de horarios ociosos e valor por hora, sincronizados em tempo real com a vitrine dos lutadores.
+- Visao Geral: indicadores de alunos ativos, retencao de 6 meses, validacoes pendentes, receita liquida de tatames e alertas prioritarios.
+- Validar Alunos: aprovacao de peso e graduacao que ativa o selo Validado Mestre no Portal do Lutador.
+- Ranking e Evasao (Churn): monitoramento de assiduidade com filtro de risco e convite rapido para reengajamento.
+- Gestao de Tatames: publicacao e remocao de horarios ociosos sincronizados com a vitrine B2C.
 - Auloes e Intercambio: criacao de treinos coletivos abertos para captacao de novos alunos.
-- Ajuda e Modelo de Negocio: guia de graduacoes para referencia tecnica do mestre e visao executiva de monetizacao e projecao de 5 anos.
+- Ajuda e Graus: guia oficial de graduacoes para referencia do treinador.
 
 ## Identidade Visual
 
@@ -50,12 +49,12 @@ A interface segue fielmente o esquema de cores da apresentacao do projeto:
 
 ```text
 sparring-app/
-├── index.html       # Tela de login, Portal do Lutador (B2C), Portal da Academia (B2B) e modais
+├── index.html       # Homepage publica, telas de cadastro/login, Portal B2C e Portal B2B
 ├── css/
 │   └── styles.css   # Sistema visual SparRing e layout responsivo
 ├── js/
 │   ├── data.js      # Base de atletas nas 11 modalidades, academias, eventos e guia de graduacoes
-│   └── app.js       # Logica independente dos dois portais com sincronizacao localStorage
+│   └── app.js       # Logica da homepage, cadastros separados e sincronizacao entre portais
 └── README.md        # Documentacao do projeto
 ```
 

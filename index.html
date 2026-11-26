@@ -12,28 +12,305 @@
 <body>
 
   <!-- ====================================================================== -->
-  <!-- TELA DE LOGIN: LUTADORES (B2C) E ACADEMIAS / TREINADORES (B2B)         -->
+  <!-- HOMEPAGE PUBLICA (APRESENTACAO + MODELO DE NEGOCIO + ACESSOS)          -->
   <!-- ====================================================================== -->
-  <section id="loginScreen" class="login-screen">
+  <div id="homeScreen" class="home-screen">
+    <header class="home-nav">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div>
+          <div style="font-size: 1.45rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1;">SparRing</div>
+          <div style="width: 38px; height: 3px; background: var(--accent-orange); margin-top: 4px;"></div>
+        </div>
+      </div>
+
+      <nav class="home-nav-links">
+        <a href="#sec-desafio">O Desafio</a>
+        <a href="#sec-solucao">Solucao</a>
+        <a href="#sec-planos">Modelo e Planos</a>
+        <a href="#sec-concorrentes">Diferenciais</a>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button class="btn btn-sm" onclick="openAuthScreen('login', 'fighter')">Entrar</button>
+        <button class="btn btn-primary btn-sm" onclick="openAuthScreen('register', 'fighter')">Criar Conta</button>
+      </div>
+    </header>
+
+    <main class="home-container">
+      <!-- HERO -->
+      <section class="home-hero">
+        <div>
+          <div class="badge-pill orange" style="display: inline-block; margin-bottom: 16px;">Onde cada round conta</div>
+          <h1 class="home-hero-title">
+            Pareamento seguro e <span style="color: var(--accent-orange);">Cartel Digital</span> para lutadores e academias.
+          </h1>
+          <p style="font-size: 1rem; color: var(--text-secondary); margin: 20px 0 28px 0; max-width: 600px;">
+            O SparRing substitui grupos desorganizados de WhatsApp por um ecossistema orientado a dados. Conecte-se com parceiros do mesmo peso, graduacao e intensidade em 11 modalidades de combate e monetize horarios ociosos de tatame.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+            <button class="btn btn-primary" style="padding: 12px 22px;" onclick="openAuthScreen('register', 'fighter')">
+              Cadastrar como Lutador
+            </button>
+            <button class="btn" style="padding: 12px 22px; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">
+              Cadastrar Academia / Treinador
+            </button>
+            <button class="btn" style="padding: 12px 18px;" onclick="openAuthScreen('login', 'fighter')">
+              Ja tenho conta
+            </button>
+          </div>
+        </div>
+
+        <div class="card card-accent-left" style="padding: 28px;">
+          <div style="font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">
+            Mercado Enderecavel no Brasil (IBGE)
+          </div>
+          <div class="mono" style="font-size: 3.4rem; font-weight: 900; color: var(--accent-orange); line-height: 1.05; margin-top: 8px;">
+            5 Milhoes
+          </div>
+          <div style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 22px;">
+            Praticantes de Artes Marciais
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; border-top: 1px solid var(--border-grid); padding-top: 18px;">
+            <div>
+              <div class="mono" style="font-size: 1.35rem; font-weight: 800;">11</div>
+              <div style="font-size: 0.74rem; color: var(--text-secondary);">Modalidades integradas (Thai, MMA, BJJ, Sambo, Capoeira...)</div>
+            </div>
+            <div>
+              <div class="mono" style="font-size: 1.35rem; font-weight: 800; color: var(--accent-orange);">2 Portais</div>
+              <div style="font-size: 0.74rem; color: var(--text-secondary);">App B2C para Lutadores + Painel B2B para Academias</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- O DESAFIO -->
+      <section id="sec-desafio" class="home-section">
+        <div class="home-section-kicker">Cenario Atual</div>
+        <h2 class="home-section-title">O Desafio no Tatame Amador</h2>
+        <div class="home-grid-4">
+          <div class="card">
+            <div class="home-icon-box red">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Desorganizacao</h3>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">
+              Atletas dependem de grupos de <strong style="color: #ff5c66;">WhatsApp desorganizados</strong> para marcar treinos extras, sem criterios claros ou confirmacoes.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box red">
+              <svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Risco de Lesoes</h3>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">
+              Disparidade fisica critica (<strong style="color: #ff5c66;">70 kg vs 100 kg</strong>) por falta de criterios tecnicos no pareamento dos sparrings.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box red">
+              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+            <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Evasao</h3>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">
+              Alunos desmotivam apos <strong style="color: #ff5c66;">6 meses</strong> devido a rotina monotona e ausencia de progressao visivel e gamificada.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box red">
+              <svg viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+            </div>
+            <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Estagnacao</h3>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">
+              Treinar sempre com os <strong style="color: #ff5c66;">mesmos parceiros</strong> limita o aprendizado e o repertorio tecnico do lutador.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- A SOLUCAO -->
+      <section id="sec-solucao" class="home-section">
+        <div class="home-section-kicker">Plataforma Completa</div>
+        <h2 class="home-section-title">A Solucao SparRing</h2>
+        <div class="equal-two-col">
+          <div class="card">
+            <div class="home-icon-box">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            </div>
+            <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Matchmaking Inteligente</h3>
+            <p style="font-size: 0.84rem; color: var(--text-secondary);">
+              Filtros precisos por <strong style="color: var(--accent-orange);">peso, graduacao, base e intensidade</strong> (tecnico 30% ou combate 80%) para o parceiro ideal.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
+            </div>
+            <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Cartel Digital e Gamificacao</h3>
+            <p style="font-size: 0.84rem; color: var(--text-secondary);">
+              Historico real com registro de <strong style="color: var(--accent-orange);">rounds, horas de treino, streak de consistencia</strong> e cards estilo Strava para Instagram.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+            </div>
+            <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Validacao por Mestres (B2B)</h3>
+            <p style="font-size: 0.84rem; color: var(--text-secondary);">
+              Academias parceiras atestam o <strong style="color: var(--accent-orange);">peso e a graduacao reais</strong> dos atletas, garantindo seguranca e retencao da equipe.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="home-icon-box">
+              <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Locacao de Tatames Ociosos</h3>
+            <p style="font-size: 0.84rem; color: var(--text-secondary);">
+              Horarios vazios entre aulas se transformam em receita extra para a academia com <strong style="color: var(--accent-orange);">split automatico via app</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODELO DE NEGOCIO, MONETIZACAO E PROJECAO -->
+      <section id="sec-planos" class="home-section">
+        <div class="home-section-kicker">Modelo de Negocio e Planos</div>
+        <h2 class="home-section-title">Monetizacao Sustentavel (B2C + B2B)</h2>
+
+        <div class="home-grid-3" style="margin-bottom: 24px;">
+          <div class="card">
+            <div class="badge-pill" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Free</div>
+            <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 8px;">R$ 0 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
+              <li>Matchmaking seguro por peso e intensidade</li>
+              <li>Dados do parceiro e volume de rounds</li>
+              <li>Streak de consistencia e Card Instagram</li>
+            </ul>
+            <button class="btn" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Criar Conta Free</button>
+          </div>
+
+          <div class="card card-accent-left" style="border-color: var(--accent-orange);">
+            <div class="badge-pill orange" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Premium</div>
+            <div class="mono" style="font-size: 1.7rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 8px;">R$ 14,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
+              <li>Insights de Oponente e Distribuicao Tecnica</li>
+              <li>Rastreio de Fadiga contra Overtraining</li>
+              <li>Filtros exclusivos (canhotos e graduacao)</li>
+            </ul>
+            <button class="btn btn-primary" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Testar como Lutador</button>
+          </div>
+
+          <div class="card">
+            <div class="badge-pill green" style="display: inline-block; margin-bottom: 10px;">B2B Academias e Mestres</div>
+            <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 8px;">R$ 89,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
+              <li>Painel de validacao tecnica e ranking interno</li>
+              <li>Monitoramento anti-evasao e auloes abertos</li>
+              <li>Locacao de tatame (taxa de 10% a 15% por reserva)</li>
+            </ul>
+            <button class="btn" style="width: 100%; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">Acessar Portal B2B</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-header" style="margin-bottom: 12px;">
+            <div class="section-heading">Projecao de Escala (5 Anos) e Receitas Adicionais</div>
+            <span class="badge-pill orange">CPM SEGMENTADO + TAXA 10% A 15%</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Periodo</th><th>Foco Geografico</th><th>Meta de Downloads</th><th>Faturamento Estimado</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono" style="font-weight: 700;">Ano 1</td><td>Belo Horizonte e Regiao Metropolitana</td><td class="mono">3.000 a 7.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 30.000 a R$ 60.000</td></tr>
+                <tr><td class="mono" style="font-weight: 700;">Ano 2</td><td>Consolidacao MG + Lucros iniciais</td><td class="mono">30.000 a 50.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 100.000 a R$ 140.000</td></tr>
+                <tr><td class="mono" style="font-weight: 700;">Ano 3</td><td>Expansao Sao Paulo e Rio de Janeiro</td><td class="mono">150.000 a 250.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 600.000 a R$ 900.000</td></tr>
+                <tr><td class="mono" style="font-weight: 700;">Ano 4</td><td>Padrao no eixo Sul e Sudeste</td><td class="mono">500.000 a 700.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 1.800.000 a R$ 2.500.000</td></tr>
+                <tr><td class="mono" style="font-weight: 700;">Ano 5</td><td>Dominio Nacional + Loja e Wearables</td><td class="mono">1.000.000+</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 4.500.000+</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONCORRENTES & VISAO DE FUTURO -->
+      <section id="sec-concorrentes" class="home-section" style="border-bottom: none;">
+        <div class="equal-two-col">
+          <div class="card">
+            <div class="section-heading" style="margin-bottom: 14px;">Matriz Competitiva</div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Funcionalidade</th><th class="col-sparring">SparRing</th><th>Fightnize</th><th>WhatsApp</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Foco em Treinos</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: var(--accent-orange);">SIM</td></tr>
+                  <tr><td>Matchmaking Inteligente</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
+                  <tr><td>Cartel Digital e Dados</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
+                  <tr><td>Seguranca (Pareamento)</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
+                  <tr><td>Gamificacao Ativa</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="section-heading" style="margin-bottom: 14px;">Visao de Futuro</div>
+            <div style="display: grid; gap: 14px;">
+              <div style="border-left: 3px solid var(--accent-orange); padding-left: 14px;">
+                <div style="font-weight: 800; font-size: 0.88rem; text-transform: uppercase;">Conectividade Smart</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Integracao nativa com Watches, Rings e Balancas de Bioimpedancia para coleta automatica de dados biometricos.</div>
+              </div>
+              <div style="border-left: 3px solid var(--accent-orange); padding-left: 14px;">
+                <div style="font-weight: 800; font-size: 0.88rem; text-transform: uppercase;">Loja In-App</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Marketplace com marcas parceiras (Maximum, Spank) para venda direta de luvas, quimonos e equipamentos.</div>
+              </div>
+              <div style="border-left: 3px solid var(--accent-orange); padding-left: 14px;">
+                <div style="font-weight: 800; font-size: 0.88rem; text-transform: uppercase;">Eventos e Seminarios</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Seminarios com lutadores profissionais e treinos coletivos de intercambio fomentando o engajamento presencial.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer style="border-top: 1px solid var(--border-grid); padding: 24px; text-align: center; font-size: 0.76rem; color: var(--text-muted);">
+      SparRing | Onde cada round conta. Desenvolvido por Pedro Hipolito (Belo Horizonte, MG).
+    </footer>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- TELA DE LOGIN / CADASTRO SEPARADO (LUTADOR B2C E ACADEMIA B2B)         -->
+  <!-- ====================================================================== -->
+  <section id="authScreen" class="login-screen hidden">
     <div class="login-shell">
       <div class="login-brand-pane">
         <div>
+          <button type="button" class="btn btn-sm" style="margin-bottom: 24px;" onclick="showHomepage()">
+            Voltar para Homepage
+          </button>
+
           <div class="login-logo">SparRing</div>
           <div class="login-bar"></div>
           <div class="login-slogan">Onde cada round conta.</div>
 
           <div class="login-pillars">
             <div class="login-pillar">
-              <div class="login-pillar-title">Portal do Lutador (B2C)</div>
-              <div class="login-pillar-desc">Matchmaking seguro em 11 modalidades, Cartel Digital, Card Instagram e metricas de fadiga.</div>
+              <div class="login-pillar-title">Cadastro Completo do Lutador</div>
+              <div class="login-pillar-desc">Arte marcial, altura, peso, graduacao, categoria (Amador ou Profissional), base (Canhoto ou Destro) e bairro/cidade.</div>
             </div>
             <div class="login-pillar">
-              <div class="login-pillar-title">Portal da Academia e Treinador (B2B)</div>
-              <div class="login-pillar-desc">Ambiente exclusivo para validar alunos, acompanhar retencao/churn, gerir horarios ociosos e criar auloes.</div>
-            </div>
-            <div class="login-pillar">
-              <div class="login-pillar-title">Ecossistema Sincronizado</div>
-              <div class="login-pillar-desc">Validacoes de mestres e horarios publicados no portal B2B refletem automaticamente para os atletas B2C.</div>
+              <div class="login-pillar-title">Portal Exclusivo da Academia (B2B)</div>
+              <div class="login-pillar-desc">Ambiente separado para mestres validarem alunos, monitorarem evasao e gerenciarem horarios ociosos.</div>
             </div>
           </div>
         </div>
@@ -44,11 +321,13 @@
       </div>
 
       <div class="login-form-pane">
-        <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-orange); font-weight: 700; margin-bottom: 6px;">
-          Acesso a Plataforma
+        <!-- Entrar vs Criar Conta -->
+        <div class="auth-mode-tabs">
+          <button type="button" id="authModeLogin" class="auth-mode-btn active" onclick="selectAuthMode('login')">Entrar</button>
+          <button type="button" id="authModeRegister" class="auth-mode-btn" onclick="selectAuthMode('register')">Criar Conta</button>
         </div>
-        <h1 style="font-size: 1.45rem; font-weight: 800; margin-bottom: 16px;">Escolha qual ambiente deseja abrir</h1>
 
+        <!-- Role Switcher: Lutador vs Academia/Treinador -->
         <div class="role-switcher">
           <button type="button" id="roleTabFighter" class="role-tab active" onclick="selectLoginRole('fighter')">
             <span class="role-tab-title">Sou Lutador</span>
@@ -60,51 +339,98 @@
           </button>
         </div>
 
-        <form id="loginForm" onsubmit="handleLoginSubmit(event)" style="display: grid; gap: 13px;">
-          <div id="loginFighterFields" style="display: grid; gap: 12px;">
+        <form id="authForm" onsubmit="handleAuthSubmit(event)" style="display: grid; gap: 11px;">
+          <!-- CADASTRO LUTADOR (COMPLETO) -->
+          <div id="registerFighterFields" style="display: none; gap: 10px;">
             <div class="field-group">
-              <label class="field-label" for="loginFighterName">Nome do Atleta</label>
-              <input type="text" id="loginFighterName" class="input" value="Pedro Hipolito" required />
+              <label class="field-label" for="regFighterName">Nome Completo</label>
+              <input type="text" id="regFighterName" class="input" value="Pedro Hipolito" />
+            </div>
+
+            <div class="equal-two-col" style="gap: 10px;">
+              <div class="field-group">
+                <label class="field-label" for="regFighterModality">Arte Marcial</label>
+                <select id="regFighterModality" class="select" onchange="updateRegisterRankOptions()"></select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="regFighterRank">Graduacao (ou Nivel)</label>
+                <select id="regFighterRank" class="select"></select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="field-group">
+                <label class="field-label" for="regFighterHeight">Altura (cm)</label>
+                <input type="number" id="regFighterHeight" class="input mono" value="178" min="140" max="220" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="regFighterWeight">Peso (kg)</label>
+                <input type="number" id="regFighterWeight" class="input mono" value="76" min="45" max="150" />
+              </div>
+            </div>
+
+            <div class="equal-two-col" style="gap: 10px;">
+              <div class="field-group">
+                <label class="field-label" for="regFighterCategory">Categoria</label>
+                <select id="regFighterCategory" class="select">
+                  <option value="Amador">Amador</option>
+                  <option value="Profissional">Profissional</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="regFighterStance">Base / Guarda</label>
+                <select id="regFighterStance" class="select">
+                  <option value="Destro">Destro</option>
+                  <option value="Canhoto">Canhoto</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="regFighterCity">Bairro / Cidade</label>
+              <input type="text" id="regFighterCity" class="input" value="Savassi, Belo Horizonte" placeholder="Ex: Savassi, Belo Horizonte" />
+            </div>
+          </div>
+
+          <!-- CADASTRO ACADEMIA / TREINADOR (COMPLETO) -->
+          <div id="registerAcademyFields" style="display: none; gap: 10px;">
+            <div class="field-group">
+              <label class="field-label" for="regGymName">Nome da Academia / CT</label>
+              <input type="text" id="regGymName" class="input" value="CT Nova Era BH" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="regCoachName">Mestre / Treinador Responsavel</label>
+              <input type="text" id="regCoachName" class="input" value="Mestre Ricardo Alves" />
             </div>
             <div class="equal-two-col" style="gap: 10px;">
               <div class="field-group">
-                <label class="field-label" for="loginFighterModality">Modalidade Principal</label>
-                <select id="loginFighterModality" class="select"></select>
+                <label class="field-label" for="regGymCity">Bairro / Cidade</label>
+                <input type="text" id="regGymCity" class="input" value="Centro, Belo Horizonte" />
               </div>
               <div class="field-group">
-                <label class="field-label" for="loginFighterWeight">Peso Atual (kg)</label>
-                <input type="number" id="loginFighterWeight" class="input mono" value="76" min="45" max="140" />
+                <label class="field-label" for="regGymSpace">Estrutura</label>
+                <input type="text" id="regGymSpace" class="input" value="Ringue + Tatame 80m2" />
               </div>
             </div>
           </div>
 
-          <div id="loginAcademyFields" style="display: none; gap: 12px;">
-            <div class="field-group">
-              <label class="field-label" for="loginGymName">Nome da Academia / CT</label>
-              <input type="text" id="loginGymName" class="input" value="CT Nova Era BH" />
-            </div>
-            <div class="field-group">
-              <label class="field-label" for="loginCoachName">Mestre / Treinador Responsavel</label>
-              <input type="text" id="loginCoachName" class="input" value="Mestre Ricardo Alves" />
-            </div>
+          <!-- CREDENCIAIS (LOGIN E CADASTRO) -->
+          <div class="field-group">
+            <label class="field-label" for="authEmail">E-mail</label>
+            <input type="email" id="authEmail" class="input" value="pedro.hipolito@sparring.app" required />
           </div>
 
           <div class="field-group">
-            <label class="field-label" for="loginEmail">E-mail</label>
-            <input type="email" id="loginEmail" class="input" value="pedro.hipolito@sparring.app" required />
+            <label class="field-label" for="authPassword">Senha</label>
+            <input type="password" id="authPassword" class="input" value="sparring2026" required />
           </div>
 
-          <div class="field-group">
-            <label class="field-label" for="loginPassword">Senha</label>
-            <input type="password" id="loginPassword" class="input" value="sparring2026" required />
-          </div>
-
-          <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 4px;">
+          <button type="submit" id="authSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 4px;">
             Entrar no Portal do Lutador
           </button>
 
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border-grid); font-size: 0.74rem; color: var(--text-muted);">
-            <span>Acesso demonstracao pre-preenchido</span>
+            <span>Acesso demonstracao pronto</span>
             <button type="button" class="btn btn-sm" onclick="quickOpenHelpFromLogin()">Guia de Graduacoes</button>
           </div>
         </form>
@@ -186,9 +512,10 @@
           </div>
         </div>
 
-        <button class="btn btn-sm" style="width: 100%; margin-top: 10px;" onclick="logoutToLogin()">
-          Trocar Perfil / Sair
-        </button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px;">
+          <button class="btn btn-sm" onclick="showHomepage()">Homepage</button>
+          <button class="btn btn-sm" onclick="logoutToLogin()">Sair</button>
+        </div>
       </div>
     </aside>
 
@@ -215,7 +542,7 @@
             <div class="avatar-square" id="fighterAvatar">PH</div>
             <div>
               <div style="font-weight: 700; line-height: 1.1;" id="fighterProfileName">Pedro Hipolito</div>
-              <div class="mono" style="font-size: 0.7rem; color: var(--text-secondary);" id="fighterProfileMeta">76kg | Muay Thai</div>
+              <div class="mono" style="font-size: 0.68rem; color: var(--text-secondary);" id="fighterProfileMeta">76kg | 178cm | Amador | Destro</div>
             </div>
           </div>
         </div>
@@ -460,7 +787,7 @@
           </button>
         </nav>
 
-        <div class="nav-section-label">Referencia e Negocio</div>
+        <div class="nav-section-label">Referencia</div>
         <nav class="nav-list">
           <button class="nav-btn" data-academy-view="help" onclick="switchAcademyView('help')">
             <span class="nav-btn-left">
@@ -468,13 +795,6 @@
               <span>Ajuda e Graus</span>
             </span>
             <span class="badge-pill">GUIA</span>
-          </button>
-
-          <button class="nav-btn" data-academy-view="business" onclick="switchAcademyView('business')">
-            <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Modelo de Negocio</span>
-            </span>
           </button>
         </nav>
       </div>
@@ -491,9 +811,10 @@
           </div>
         </div>
 
-        <button class="btn btn-sm" style="width: 100%; margin-top: 10px;" onclick="logoutToLogin()">
-          Trocar Perfil / Sair
-        </button>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px;">
+          <button class="btn btn-sm" onclick="showHomepage()">Homepage</button>
+          <button class="btn btn-sm" onclick="logoutToLogin()">Sair</button>
+        </div>
       </div>
     </aside>
 
@@ -686,97 +1007,6 @@
         <!-- B2B VIEW 6: AJUDA E GRADUACOES -->
         <section id="aview-help" class="view-section">
           <div id="academyHelpMount"></div>
-        </section>
-
-        <!-- B2B VIEW 7: MODELO DE NEGOCIO -->
-        <section id="aview-business" class="view-section">
-          <div class="kpi-grid">
-            <div class="card card-accent-left">
-              <div class="kpi-label">Mercado Enderecavel (IBGE)</div>
-              <div class="kpi-value orange mono">5 Milhoes</div>
-              <div class="kpi-note">Praticantes de artes marciais no Brasil</div>
-            </div>
-            <div class="card">
-              <div class="kpi-label">Investimento Inicial</div>
-              <div class="kpi-value mono">R$ 85.000</div>
-              <div class="kpi-note">Setup tecnico, nuvem, CNPJ e marketing BH</div>
-            </div>
-            <div class="card">
-              <div class="kpi-label">Projecao Ano 1 (BH)</div>
-              <div class="kpi-value mono">R$ 60 mil</div>
-              <div class="kpi-note">Meta: 3.000 a 7.000 downloads</div>
-            </div>
-            <div class="card">
-              <div class="kpi-label">Projecao Ano 5 (Nacional)</div>
-              <div class="kpi-value orange mono">R$ 4,5M+</div>
-              <div class="kpi-note">Meta: 1.000.000+ downloads ativos</div>
-            </div>
-          </div>
-
-          <div class="equal-two-col" style="margin-bottom: 20px;">
-            <div class="card">
-              <div class="section-heading" style="margin-bottom: 14px;">Fontes de Monetizacao</div>
-              <div style="display: grid; gap: 12px;">
-                <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
-                  <div style="font-weight: 700; font-size: 0.88rem;">B2B Academias | <span class="mono" style="color: var(--accent-orange);">R$ 89,90 a R$ 99,90 /mes</span></div>
-                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Painel de gestao de tatame, validacao de alunos, rankings internos e vitrine digital.</div>
-                </div>
-                <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
-                  <div style="font-weight: 700; font-size: 0.88rem;">B2C Lutadores Premium | <span class="mono" style="color: var(--accent-orange);">R$ 14,90 /mes</span></div>
-                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Insights de oponente, distribuicao tecnica, rastreio de fadiga e filtros exclusivos.</div>
-                </div>
-                <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
-                  <div style="font-weight: 700; font-size: 0.88rem;">Taxa de Intermediacao | <span class="mono" style="color: var(--accent-orange);">10% a 15% por transacao</span></div>
-                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Split automatico retido em cada locacao de tatame ou ringue realizada via plataforma.</div>
-                </div>
-                <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
-                  <div style="font-weight: 700; font-size: 0.88rem;">Publicidade Nativa | <span class="mono" style="color: var(--accent-orange);">CPM Segmentado</span></div>
-                  <div style="font-size: 0.78rem; color: var(--text-secondary);">Espaco para marcas esportivas (luvas, quimonos e equipamentos de combate).</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="section-heading" style="margin-bottom: 14px;">Matriz Competitiva</div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Funcionalidade</th>
-                      <th class="col-sparring">SparRing</th>
-                      <th>Fightnize</th>
-                      <th>WhatsApp</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Foco em Treinos</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: var(--accent-orange);">SIM</td></tr>
-                    <tr><td>Matchmaking Inteligente</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
-                    <tr><td>Cartel Digital e Dados</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
-                    <tr><td>Seguranca (Pareamento)</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
-                    <tr><td>Gamificacao Ativa</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="section-heading" style="margin-bottom: 14px;">Projecao Financeira e Escala (5 Anos)</div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>Periodo</th><th>Foco Geografico</th><th>Meta de Downloads</th><th>Faturamento Estimado</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td class="mono" style="font-weight: 700;">Ano 1</td><td>Belo Horizonte e Regiao Metropolitana</td><td class="mono">3.000 a 7.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 30.000 a R$ 60.000</td></tr>
-                  <tr><td class="mono" style="font-weight: 700;">Ano 2</td><td>Consolidacao MG + Lucros iniciais</td><td class="mono">30.000 a 50.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 100.000 a R$ 140.000</td></tr>
-                  <tr><td class="mono" style="font-weight: 700;">Ano 3</td><td>Expansao Sao Paulo e Rio de Janeiro</td><td class="mono">150.000 a 250.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 600.000 a R$ 900.000</td></tr>
-                  <tr><td class="mono" style="font-weight: 700;">Ano 4</td><td>Padrao no eixo Sul e Sudeste</td><td class="mono">500.000 a 700.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 1.800.000 a R$ 2.500.000</td></tr>
-                  <tr><td class="mono" style="font-weight: 700;">Ano 5</td><td>Dominio Nacional + Loja e Wearables</td><td class="mono">1.000.000+</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 4.500.000+</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </section>
       </main>
     </div>

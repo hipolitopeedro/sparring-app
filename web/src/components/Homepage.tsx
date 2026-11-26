@@ -15,6 +15,7 @@ import {
   X,
 } from 'lucide-react';
 import { AuthMode, UserRole } from '../types/sparring';
+import { HologramGloveShowcase } from './HologramGloveShowcase';
 
 interface HomepageProps {
   onOpenAuth: (mode: AuthMode, role: UserRole) => void;
@@ -32,6 +33,7 @@ export const Homepage: React.FC<HomepageProps> = ({ onOpenAuth }) => {
           </div>
 
           <nav className="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-widest text-neutral-400">
+            <a href="#holograma" className="text-sparring hover:text-white transition">Holograma 3D</a>
             <a href="#desafio" className="hover:text-sparring transition">O Desafio</a>
             <a href="#solucao" className="hover:text-sparring transition">Solucao</a>
             <a href="#planos" className="hover:text-sparring transition">Planos</a>
@@ -129,6 +131,9 @@ export const Homepage: React.FC<HomepageProps> = ({ onOpenAuth }) => {
             </div>
           </div>
         </section>
+
+        {/* Interactive 3D Holographic Boxing Glove Scrollytelling */}
+        <HologramGloveShowcase onOpenAuth={onOpenAuth} />
 
         {/* O Desafio */}
         <section id="desafio" className="py-16 border-b border-gridline">

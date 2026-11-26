@@ -23,7 +23,7 @@ Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo Sp
 - Matchmaking Inteligente em 11 modalidades (Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo), com filtro de peso, alerta de disparidade fisica e pontuacao de compatibilidade.
 - Cartel Digital: registro persistente (localStorage) de rounds, horas de treino, intensidade media, streak de consistencia e exportacao de Card Compartilhavel em PNG.
 - Insights e Fadiga (Premium): Insights de Oponente, Distribuicao Tecnica (Boxe, Chutes e Clinch), grafico SVG de Rastreio de Fadiga contra Overtraining e filtros exclusivos por canhotos e nivel minimo.
-- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte com split automatico, confirmacao visual verde ao garantir vaga em auloes e opcoes de reagendar ou cancelar sparrings e aulas.
+- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte com split automatico, opcoes de reagendar ou cancelar sparrings e reservas, e inscricao em auloes com confirmacao visual verde e opcao de cancelar vaga.
 - Ajuda e Guia de Graduacoes: explicacao do nivelamento universal (N1 a N4), graus de Muay Thai (padrao CBMT de 9 graus de Kruang/Prajioud), faixas de Jiu-Jitsu (IBJJF/CBJJ), MMA, Sambo (FIAS), Capoeira, Boxe, Kickboxing, Judo, Wrestling, Karate e Taekwondo.
 
 ### Portal da Academia e Treinador (B2B)

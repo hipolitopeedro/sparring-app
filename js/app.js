@@ -1157,7 +1157,6 @@ function renderTatames() {
               ? `
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border-grid);">
                   <span class="btn btn-success btn-sm" style="cursor: default;">Confirmado</span>
-                  <button type="button" class="btn btn-sm" onclick="openRescheduleModal('event', '${ev.id}')">Reagendar</button>
                   <button type="button" class="btn btn-danger btn-sm" onclick="cancelEventEnrollment('${ev.id}')">Cancelar Vaga</button>
                 </div>
               `

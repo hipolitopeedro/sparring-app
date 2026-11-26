@@ -617,8 +617,10 @@ window.SPARRING_DEFAULT_DATA = {
       gym: "CT Nova Era BH",
       modality: "Muay Thai",
       date: "Sabado 10:00",
+      altDates: ["Sabado 10:00", "Sabado 16:00", "Domingo 09:30"],
       spots: 24,
-      enrolled: 16
+      enrolled: 16,
+      enrolledByUser: false
     },
     {
       id: "ev2",
@@ -626,8 +628,10 @@ window.SPARRING_DEFAULT_DATA = {
       gym: "CT Buritis Strike",
       modality: "MMA",
       date: "Domingo 09:30",
+      altDates: ["Domingo 09:30", "Domingo 15:00", "Terca 20:00"],
       spots: 16,
-      enrolled: 11
+      enrolled: 11,
+      enrolledByUser: false
     }
   ]
 };

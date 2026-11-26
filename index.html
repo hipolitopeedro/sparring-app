@@ -7,12 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
 </head>
 <body>
 
   <!-- ====================================================================== -->
-  <!-- HOMEPAGE PUBLICA (APRESENTACAO + MODELO DE NEGOCIO + ACESSOS)          -->
+  <!-- HOMEPAGE PUBLICA (APRESENTACAO + PLANOS + ACESSOS)                     -->
   <!-- ====================================================================== -->
   <div id="homeScreen" class="home-screen">
     <header class="home-nav">
@@ -26,13 +26,13 @@
       <nav class="home-nav-links">
         <a href="#sec-desafio">O Desafio</a>
         <a href="#sec-solucao">Solucao</a>
-        <a href="#sec-planos">Modelo e Planos</a>
+        <a href="#sec-planos">Planos</a>
         <a href="#sec-concorrentes">Diferenciais</a>
       </nav>
 
       <div style="display: flex; align-items: center; gap: 8px;">
-        <button class="btn btn-sm" onclick="openAuthScreen('login', 'fighter')">Entrar</button>
-        <button class="btn btn-primary btn-sm" onclick="openAuthScreen('register', 'fighter')">Criar Conta</button>
+        <button type="button" class="btn btn-sm" onclick="openAuthScreen('login', 'fighter')">Entrar</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="openAuthScreen('register', 'fighter')">Criar Conta</button>
       </div>
     </header>
 
@@ -49,13 +49,13 @@
           </p>
 
           <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-            <button class="btn btn-primary" style="padding: 12px 22px;" onclick="openAuthScreen('register', 'fighter')">
+            <button type="button" class="btn btn-primary" style="padding: 12px 22px;" onclick="openAuthScreen('register', 'fighter')">
               Cadastrar como Lutador
             </button>
-            <button class="btn" style="padding: 12px 22px; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">
+            <button type="button" class="btn" style="padding: 12px 22px; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">
               Cadastrar Academia / Treinador
             </button>
-            <button class="btn" style="padding: 12px 18px;" onclick="openAuthScreen('login', 'fighter')">
+            <button type="button" class="btn" style="padding: 12px 18px;" onclick="openAuthScreen('login', 'fighter')">
               Ja tenho conta
             </button>
           </div>
@@ -65,7 +65,7 @@
           <div style="font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">
             Mercado Enderecavel no Brasil (IBGE)
           </div>
-          <div class="mono" style="font-size: 3.4rem; font-weight: 900; color: var(--accent-orange); line-height: 1.05; margin-top: 8px;">
+          <div class="mono" style="font-size: 3.2rem; font-weight: 900; color: var(--accent-orange); line-height: 1.05; margin-top: 8px;">
             5 Milhoes
           </div>
           <div style="font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 22px;">
@@ -92,7 +92,7 @@
         <div class="home-grid-4">
           <div class="card">
             <div class="home-icon-box red">
-              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             </div>
             <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Desorganizacao</h3>
             <p style="font-size: 0.82rem; color: var(--text-secondary);">
@@ -102,7 +102,7 @@
 
           <div class="card">
             <div class="home-icon-box red">
-              <svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </div>
             <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Risco de Lesoes</h3>
             <p style="font-size: 0.82rem; color: var(--text-secondary);">
@@ -112,7 +112,7 @@
 
           <div class="card">
             <div class="home-icon-box red">
-              <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             </div>
             <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Evasao</h3>
             <p style="font-size: 0.82rem; color: var(--text-secondary);">
@@ -122,7 +122,7 @@
 
           <div class="card">
             <div class="home-icon-box red">
-              <svg viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
             </div>
             <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;">Estagnacao</h3>
             <p style="font-size: 0.82rem; color: var(--text-secondary);">
@@ -139,7 +139,7 @@
         <div class="equal-two-col">
           <div class="card">
             <div class="home-icon-box">
-              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
             </div>
             <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Matchmaking Inteligente</h3>
             <p style="font-size: 0.84rem; color: var(--text-secondary);">
@@ -149,7 +149,7 @@
 
           <div class="card">
             <div class="home-icon-box">
-              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
             </div>
             <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Cartel Digital e Gamificacao</h3>
             <p style="font-size: 0.84rem; color: var(--text-secondary);">
@@ -159,7 +159,7 @@
 
           <div class="card">
             <div class="home-icon-box">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
             </div>
             <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Validacao por Mestres (B2B)</h3>
             <p style="font-size: 0.84rem; color: var(--text-secondary);">
@@ -169,7 +169,7 @@
 
           <div class="card">
             <div class="home-icon-box">
-              <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <h3 style="font-size: 1rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Locacao de Tatames Ociosos</h3>
             <p style="font-size: 0.84rem; color: var(--text-secondary);">
@@ -179,64 +179,49 @@
         </div>
       </section>
 
-      <!-- MODELO DE NEGOCIO, MONETIZACAO E PROJECAO -->
+      <!-- MODELO DE NEGOCIO E PLANOS -->
       <section id="sec-planos" class="home-section">
         <div class="home-section-kicker">Modelo de Negocio e Planos</div>
-        <h2 class="home-section-title">Monetizacao Sustentavel (B2C + B2B)</h2>
+        <h2 class="home-section-title">Planos para Atletas e Academias</h2>
 
-        <div class="home-grid-3" style="margin-bottom: 24px;">
-          <div class="card">
-            <div class="badge-pill" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Free</div>
-            <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 8px;">R$ 0 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
-            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
-              <li>Matchmaking seguro por peso e intensidade</li>
-              <li>Dados do parceiro e volume de rounds</li>
-              <li>Streak de consistencia e Card Instagram</li>
-            </ul>
-            <button class="btn" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Criar Conta Free</button>
+        <div class="home-grid-3">
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="badge-pill" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Free</div>
+              <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 10px;">R$ 0 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+              <ul style="font-size: 0.82rem; color: var(--text-secondary); list-style: none; display: grid; gap: 8px; margin-bottom: 20px;">
+                <li>Matchmaking seguro por peso e intensidade</li>
+                <li>Dados do parceiro e volume de rounds</li>
+                <li>Streak de consistencia e Card Instagram</li>
+              </ul>
+            </div>
+            <button type="button" class="btn" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Criar Conta Free</button>
           </div>
 
-          <div class="card card-accent-left" style="border-color: var(--accent-orange);">
-            <div class="badge-pill orange" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Premium</div>
-            <div class="mono" style="font-size: 1.7rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 8px;">R$ 14,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
-            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
-              <li>Insights de Oponente e Distribuicao Tecnica</li>
-              <li>Rastreio de Fadiga contra Overtraining</li>
-              <li>Filtros exclusivos (canhotos e graduacao)</li>
-            </ul>
-            <button class="btn btn-primary" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Testar como Lutador</button>
+          <div class="card card-accent-left" style="border-color: var(--accent-orange); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="badge-pill orange" style="display: inline-block; margin-bottom: 10px;">B2C Lutador Premium</div>
+              <div class="mono" style="font-size: 1.7rem; font-weight: 900; color: var(--accent-orange); margin-bottom: 10px;">R$ 14,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+              <ul style="font-size: 0.82rem; color: var(--text-secondary); list-style: none; display: grid; gap: 8px; margin-bottom: 20px;">
+                <li>Insights de Oponente e Distribuicao Tecnica</li>
+                <li>Rastreio de Fadiga contra Overtraining</li>
+                <li>Filtros exclusivos (canhotos e graduacao)</li>
+              </ul>
+            </div>
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="openAuthScreen('register', 'fighter')">Cadastrar como Lutador</button>
           </div>
 
-          <div class="card">
-            <div class="badge-pill green" style="display: inline-block; margin-bottom: 10px;">B2B Academias e Mestres</div>
-            <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 8px;">R$ 89,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
-            <ul style="font-size: 0.8rem; color: var(--text-secondary); list-style: none; display: grid; gap: 6px; margin-bottom: 18px;">
-              <li>Painel de validacao tecnica e ranking interno</li>
-              <li>Monitoramento anti-evasao e auloes abertos</li>
-              <li>Locacao de tatame (taxa de 10% a 15% por reserva)</li>
-            </ul>
-            <button class="btn" style="width: 100%; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">Acessar Portal B2B</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="section-header" style="margin-bottom: 12px;">
-            <div class="section-heading">Projecao de Escala (5 Anos) e Receitas Adicionais</div>
-            <span class="badge-pill orange">CPM SEGMENTADO + TAXA 10% A 15%</span>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Periodo</th><th>Foco Geografico</th><th>Meta de Downloads</th><th>Faturamento Estimado</th></tr>
-              </thead>
-              <tbody>
-                <tr><td class="mono" style="font-weight: 700;">Ano 1</td><td>Belo Horizonte e Regiao Metropolitana</td><td class="mono">3.000 a 7.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 30.000 a R$ 60.000</td></tr>
-                <tr><td class="mono" style="font-weight: 700;">Ano 2</td><td>Consolidacao MG + Lucros iniciais</td><td class="mono">30.000 a 50.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 100.000 a R$ 140.000</td></tr>
-                <tr><td class="mono" style="font-weight: 700;">Ano 3</td><td>Expansao Sao Paulo e Rio de Janeiro</td><td class="mono">150.000 a 250.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 600.000 a R$ 900.000</td></tr>
-                <tr><td class="mono" style="font-weight: 700;">Ano 4</td><td>Padrao no eixo Sul e Sudeste</td><td class="mono">500.000 a 700.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 1.800.000 a R$ 2.500.000</td></tr>
-                <tr><td class="mono" style="font-weight: 700;">Ano 5</td><td>Dominio Nacional + Loja e Wearables</td><td class="mono">1.000.000+</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 4.500.000+</td></tr>
-              </tbody>
-            </table>
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="badge-pill green" style="display: inline-block; margin-bottom: 10px;">B2B Academias e Mestres</div>
+              <div class="mono" style="font-size: 1.7rem; font-weight: 900; margin-bottom: 10px;">R$ 89,90 <span style="font-size: 0.8rem; color: var(--text-muted);">/mes</span></div>
+              <ul style="font-size: 0.82rem; color: var(--text-secondary); list-style: none; display: grid; gap: 8px; margin-bottom: 20px;">
+                <li>Painel de validacao tecnica e ranking interno</li>
+                <li>Monitoramento anti-evasao e auloes abertos</li>
+                <li>Locacao de tatame (split automatico 10% a 15%)</li>
+              </ul>
+            </div>
+            <button type="button" class="btn" style="width: 100%; border-color: var(--accent-orange); color: var(--accent-orange);" onclick="openAuthScreen('register', 'academy')">Cadastrar Academia</button>
           </div>
         </div>
       </section>
@@ -321,13 +306,11 @@
       </div>
 
       <div class="login-form-pane">
-        <!-- Entrar vs Criar Conta -->
         <div class="auth-mode-tabs">
           <button type="button" id="authModeLogin" class="auth-mode-btn active" onclick="selectAuthMode('login')">Entrar</button>
           <button type="button" id="authModeRegister" class="auth-mode-btn" onclick="selectAuthMode('register')">Criar Conta</button>
         </div>
 
-        <!-- Role Switcher: Lutador vs Academia/Treinador -->
         <div class="role-switcher">
           <button type="button" id="roleTabFighter" class="role-tab active" onclick="selectLoginRole('fighter')">
             <span class="role-tab-title">Sou Lutador</span>
@@ -340,7 +323,6 @@
         </div>
 
         <form id="authForm" onsubmit="handleAuthSubmit(event)" style="display: grid; gap: 11px;">
-          <!-- CADASTRO LUTADOR (COMPLETO) -->
           <div id="registerFighterFields" style="display: none; gap: 10px;">
             <div class="field-group">
               <label class="field-label" for="regFighterName">Nome Completo</label>
@@ -392,7 +374,6 @@
             </div>
           </div>
 
-          <!-- CADASTRO ACADEMIA / TREINADOR (COMPLETO) -->
           <div id="registerAcademyFields" style="display: none; gap: 10px;">
             <div class="field-group">
               <label class="field-label" for="regGymName">Nome da Academia / CT</label>
@@ -414,7 +395,6 @@
             </div>
           </div>
 
-          <!-- CREDENCIAIS (LOGIN E CADASTRO) -->
           <div class="field-group">
             <label class="field-label" for="authEmail">E-mail</label>
             <input type="email" id="authEmail" class="input" value="pedro.hipolito@sparring.app" required />
@@ -454,7 +434,7 @@
         <nav class="nav-list">
           <button class="nav-btn active" data-fighter-view="matchmaking" onclick="switchFighterView('matchmaking')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               <span>Matchmaking</span>
             </span>
             <span class="badge-pill orange" id="navMatchCount">14</span>
@@ -462,7 +442,7 @@
 
           <button class="nav-btn" data-fighter-view="cartel" onclick="switchFighterView('cartel')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
               <span>Cartel Digital</span>
             </span>
             <span class="badge-pill" id="navSessionCount">5</span>
@@ -470,7 +450,7 @@
 
           <button class="nav-btn" data-fighter-view="analytics" onclick="switchFighterView('analytics')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
               <span>Insights e Fadiga</span>
             </span>
             <span class="badge-pill orange">PRO</span>
@@ -478,7 +458,7 @@
 
           <button class="nav-btn" data-fighter-view="tatames" onclick="switchFighterView('tatames')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
               <span>Tatames e Auloes</span>
             </span>
             <span class="badge-pill" id="navBookedCount">1</span>
@@ -489,7 +469,7 @@
         <nav class="nav-list">
           <button class="nav-btn" data-fighter-view="help" onclick="switchFighterView('help')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Ajuda e Graus</span>
             </span>
             <span class="badge-pill">GUIA</span>
@@ -530,7 +510,7 @@
 
         <div class="topbar-right">
           <div class="streak-chip mono" title="Streak de Consistencia ativo">
-            <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
             <span id="headerStreakText">14 DIAS STREAK</span>
           </div>
 
@@ -711,7 +691,7 @@
 
             <div>
               <div class="section-header">
-                <div class="section-heading">Seus Sparrings Agendados</div>
+                <div class="section-heading">Seus Sparrings e Reservas</div>
                 <span class="badge-pill green" id="scheduledBadgeCount">1 ATIVO</span>
               </div>
               <div id="scheduledMatchesList" style="display: grid; gap: 12px;"></div>
@@ -751,14 +731,14 @@
         <nav class="nav-list">
           <button class="nav-btn active" data-academy-view="overview" onclick="switchAcademyView('overview')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
               <span>Visao Geral</span>
             </span>
           </button>
 
           <button class="nav-btn" data-academy-view="validations" onclick="switchAcademyView('validations')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
               <span>Validar Alunos</span>
             </span>
             <span class="badge-pill red" id="navPendingValB2B">3</span>
@@ -766,7 +746,7 @@
 
           <button class="nav-btn" data-academy-view="retention" onclick="switchAcademyView('retention')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
               <span>Ranking e Evasao</span>
             </span>
             <span class="badge-pill red" id="navChurnCountB2B">2</span>
@@ -774,14 +754,14 @@
 
           <button class="nav-btn" data-academy-view="slots" onclick="switchAcademyView('slots')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               <span>Gestao de Tatames</span>
             </span>
           </button>
 
           <button class="nav-btn" data-academy-view="events" onclick="switchAcademyView('events')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <span>Auloes e Intercambio</span>
             </span>
           </button>
@@ -791,7 +771,7 @@
         <nav class="nav-list">
           <button class="nav-btn" data-academy-view="help" onclick="switchAcademyView('help')">
             <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Ajuda e Graus</span>
             </span>
             <span class="badge-pill">GUIA</span>
@@ -843,7 +823,6 @@
       </header>
 
       <main class="content-container">
-        <!-- B2B VIEW 1: VISAO GERAL -->
         <section id="aview-overview" class="view-section active">
           <div class="kpi-grid">
             <div class="card card-accent-left">
@@ -887,7 +866,6 @@
           </div>
         </section>
 
-        <!-- B2B VIEW 2: VALIDACAO DE ALUNOS -->
         <section id="aview-validations" class="view-section">
           <div class="card">
             <div class="section-header">
@@ -903,7 +881,6 @@
           </div>
         </section>
 
-        <!-- B2B VIEW 3: RANKING E RETENCAO (CHURN) -->
         <section id="aview-retention" class="view-section">
           <div class="card">
             <div class="section-header">
@@ -935,7 +912,6 @@
           </div>
         </section>
 
-        <!-- B2B VIEW 4: GESTAO DE TATAMES E HORARIOS OCIOSOS -->
         <section id="aview-slots" class="view-section">
           <div class="two-col">
             <div class="card">
@@ -966,7 +942,6 @@
           </div>
         </section>
 
-        <!-- B2B VIEW 5: AULOES E INTERCAMBIO -->
         <section id="aview-events" class="view-section">
           <div class="two-col">
             <div class="card">
@@ -1004,7 +979,6 @@
           </div>
         </section>
 
-        <!-- B2B VIEW 6: AJUDA E GRADUACOES -->
         <section id="aview-help" class="view-section">
           <div id="academyHelpMount"></div>
         </section>
@@ -1015,23 +989,23 @@
   <!-- Mobile Bottom Navigation (Fighter) -->
   <nav id="mobileNavFighter" class="mobile-nav" style="display: none; grid-template-columns: repeat(5, 1fr);">
     <button class="mobile-nav-btn active" data-fighter-view="matchmaking" onclick="switchFighterView('matchmaking')">
-      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <span>Match</span>
     </button>
     <button class="mobile-nav-btn" data-fighter-view="cartel" onclick="switchFighterView('cartel')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 10h10"/><path d="M7 14h6"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 10h10"/><path d="M7 14h6"/></svg>
       <span>Cartel</span>
     </button>
     <button class="mobile-nav-btn" data-fighter-view="analytics" onclick="switchFighterView('analytics')">
-      <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
       <span>Pro</span>
     </button>
     <button class="mobile-nav-btn" data-fighter-view="tatames" onclick="switchFighterView('tatames')">
-      <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
       <span>Tatame</span>
     </button>
     <button class="mobile-nav-btn" data-fighter-view="help" onclick="switchFighterView('help')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
       <span>Ajuda</span>
     </button>
   </nav>
@@ -1039,23 +1013,23 @@
   <!-- Mobile Bottom Navigation (Academy B2B) -->
   <nav id="mobileNavAcademy" class="mobile-nav" style="display: none; grid-template-columns: repeat(5, 1fr);">
     <button class="mobile-nav-btn active" data-academy-view="overview" onclick="switchAcademyView('overview')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       <span>Geral</span>
     </button>
     <button class="mobile-nav-btn" data-academy-view="validations" onclick="switchAcademyView('validations')">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
       <span>Validar</span>
     </button>
     <button class="mobile-nav-btn" data-academy-view="retention" onclick="switchAcademyView('retention')">
-      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <span>Alunos</span>
     </button>
     <button class="mobile-nav-btn" data-academy-view="slots" onclick="switchAcademyView('slots')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       <span>Tatame</span>
     </button>
     <button class="mobile-nav-btn" data-academy-view="events" onclick="switchAcademyView('events')">
-      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <svg width="17" height="17" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       <span>Auloes</span>
     </button>
   </nav>
@@ -1101,6 +1075,34 @@
         <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;">
           <button type="button" class="btn" onclick="closeMatchModal()">Cancelar</button>
           <button type="submit" class="btn btn-primary">Confirmar Sparring e Tatame</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: REAGENDAR SPARRING OU AULAO -->
+  <div id="rescheduleModal" class="modal-backdrop" onclick="if(event.target===this) closeRescheduleModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div style="font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-orange); font-weight: 700;">Reagendamento</div>
+          <h3 id="rescheduleModalTitle" style="font-size: 1.1rem; font-weight: 800; margin-top: 2px;">Escolher Novo Horario</h3>
+        </div>
+        <button class="modal-close" onclick="closeRescheduleModal()">X</button>
+      </div>
+      <form id="rescheduleForm" onsubmit="submitReschedule(event)" style="display: grid; gap: 14px;">
+        <input type="hidden" id="rescheduleType" />
+        <input type="hidden" id="rescheduleTargetId" />
+        <div id="rescheduleInfoBox" class="card" style="padding: 12px; background: var(--bg-main); font-size: 0.82rem;"></div>
+
+        <div class="field-group">
+          <label class="field-label" for="rescheduleSlotSelect">Selecione o Novo Horario</label>
+          <select id="rescheduleSlotSelect" class="select"></select>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button type="button" class="btn" onclick="closeRescheduleModal()">Voltar</button>
+          <button type="submit" class="btn btn-primary">Confirmar Novo Horario</button>
         </div>
       </form>
     </div>
@@ -1203,7 +1205,7 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <script src="js/data.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/data.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 // SparRing Application Logic - Homepage, Login/Cadastro Separados, Portal Lutador (B2C) e Portal Academia (B2B)
 
-const STORAGE_KEY = "sparring_mvp_state_v4";
+const STORAGE_KEY = "sparring_mvp_state_v5";
 
 let appState = loadState();
 let selectedSessionId = appState.sessions[0] ? appState.sessions[0].id : null;
@@ -1109,21 +1109,25 @@ function renderTatames() {
   const listEl = document.getElementById("scheduledMatchesList");
 
   if (!appState.scheduledMatches.length) {
-    listEl.innerHTML = `<div class="card" style="color: var(--text-muted); font-size: 0.84rem;">Nenhum sparring agendado no momento.</div>`;
+    listEl.innerHTML = `<div class="card" style="color: var(--text-muted); font-size: 0.84rem;">Nenhum sparring ou reserva agendada no momento.</div>`;
   } else {
     listEl.innerHTML = appState.scheduledMatches
       .map(
         (m) => `
         <div class="card card-accent-left">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px;">
             <strong style="font-size: 0.92rem;">${m.partnerName}</strong>
             <span class="badge-pill green">${m.status}</span>
           </div>
           <div style="font-size: 0.78rem; color: var(--text-secondary);">
-            ${m.modality} | ${m.gym} | <strong>${m.slot}</strong>
+            ${m.modality} | ${m.gym} | <strong style="color: var(--text-primary);">${m.slot}</strong>
           </div>
-          <div class="mono" style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px;">
+          <div class="mono" style="font-size: 0.74rem; color: var(--text-muted); margin-top: 6px;">
             ${m.rounds} rounds | Intensidade ${m.intensity}% | Locacao R$ ${m.totalPrice.toFixed(2)} (Taxa app R$ ${m.platformFee.toFixed(2)})
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-grid);">
+            <button type="button" class="btn btn-sm" onclick="openRescheduleModal('match', '${m.id}')">Reagendar</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="cancelScheduledMatch('${m.id}')">Cancelar</button>
           </div>
         </div>
       `
@@ -1132,21 +1136,36 @@ function renderTatames() {
   }
 
   document.getElementById("fighterEventsList").innerHTML = (appState.academyEvents || [])
-    .map(
-      (ev) => `
-      <div style="border: 1px solid var(--border-grid); padding: 14px; background: var(--bg-main); display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
-        <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-            <span class="badge-pill orange">${ev.modality}</span>
-            <span class="mono" style="font-size: 0.72rem; color: var(--text-muted);">${ev.enrolled}/${ev.spots} inscritos</span>
+    .map((ev) => {
+      const joined = Boolean(ev.enrolledByUser);
+      const checkSvg = `<span class="check-circle-green" title="Vaga Garantida"><svg width="14" height="14" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>`;
+      return `
+        <div class="${joined ? "event-card-confirmed" : ""}" style="border: 1px solid var(--border-grid); padding: 14px; background: var(--bg-main); display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                ${joined ? checkSvg : ""}
+                <span class="badge-pill ${joined ? "green" : "orange"}">${joined ? "VAGA GARANTIDA" : ev.modality}</span>
+              </div>
+              <span class="mono" style="font-size: 0.72rem; color: var(--text-muted);">${ev.enrolled}/${ev.spots} inscritos</span>
+            </div>
+            <div style="font-weight: 800; font-size: 0.92rem; margin-top: 8px;">${ev.title}</div>
+            <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">${ev.gym} | <strong style="color: var(--text-primary);">${ev.date}</strong></div>
           </div>
-          <div style="font-weight: 800; font-size: 0.92rem; margin-top: 8px;">${ev.title}</div>
-          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">${ev.gym} | ${ev.date}</div>
+          ${
+            joined
+              ? `
+                <div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border-grid);">
+                  <span class="btn btn-success btn-sm" style="cursor: default;">Confirmado</span>
+                  <button type="button" class="btn btn-sm" onclick="openRescheduleModal('event', '${ev.id}')">Reagendar</button>
+                  <button type="button" class="btn btn-danger btn-sm" onclick="cancelEventEnrollment('${ev.id}')">Cancelar Vaga</button>
+                </div>
+              `
+              : `<button type="button" class="btn btn-primary btn-sm" onclick="enrollInEvent('${ev.id}')">Garantir Vaga</button>`
+          }
         </div>
-        <button class="btn btn-primary btn-sm" onclick="enrollInEvent('${ev.id}')">Garantir Vaga</button>
-      </div>
-    `
-    )
+      `;
+    })
     .join("");
 }
 
@@ -1172,17 +1191,100 @@ function quickBookMat(gymId, slot) {
   showToast(`Tatame reservado em ${gym.name} para ${slot}.`);
 }
 
+function cancelScheduledMatch(matchId) {
+  const idx = appState.scheduledMatches.findIndex((m) => m.id === matchId);
+  if (idx === -1) return;
+  const removed = appState.scheduledMatches.splice(idx, 1)[0];
+  saveState();
+  syncBadges();
+  renderTatames();
+  showToast(`Agendamento cancelado: ${removed.partnerName} (${removed.slot}).`);
+}
+
 function enrollInEvent(eventId) {
   const ev = (appState.academyEvents || []).find((x) => x.id === eventId);
   if (!ev) return;
+  if (ev.enrolledByUser) {
+    showToast("Voce ja esta inscrito neste aulao.");
+    return;
+  }
   if (ev.enrolled < ev.spots) {
     ev.enrolled += 1;
+    ev.enrolledByUser = true;
     saveState();
     renderTatames();
     showToast(`Vaga confirmada em: ${ev.title}.`);
   } else {
     showToast("Vagas esgotadas para este aulao.");
   }
+}
+
+function cancelEventEnrollment(eventId) {
+  const ev = (appState.academyEvents || []).find((x) => x.id === eventId);
+  if (!ev || !ev.enrolledByUser) return;
+  ev.enrolledByUser = false;
+  ev.enrolled = Math.max(0, ev.enrolled - 1);
+  saveState();
+  renderTatames();
+  showToast(`Inscricao cancelada em: ${ev.title}.`);
+}
+
+function openRescheduleModal(type, targetId) {
+  document.getElementById("rescheduleType").value = type;
+  document.getElementById("rescheduleTargetId").value = targetId;
+  const slotSelect = document.getElementById("rescheduleSlotSelect");
+  const infoBox = document.getElementById("rescheduleInfoBox");
+
+  if (type === "match") {
+    const m = appState.scheduledMatches.find((x) => x.id === targetId);
+    if (!m) return;
+    document.getElementById("rescheduleModalTitle").textContent = "Reagendar Sparring / Tatame";
+    infoBox.innerHTML = `<strong>${m.partnerName}</strong> (${m.modality})<br /><span style="color: var(--text-secondary);">${m.gym} | Horario atual: ${m.slot}</span>`;
+    const gym = appState.gyms.find((g) => g.name === m.gym) || appState.gyms[0];
+    const options = Array.from(new Set([...(gym.slots || []), "Sexta 18:30", "Sabado 17:00", "Domingo 16:00"]));
+    slotSelect.innerHTML = options.map((s) => `<option value="${s}" ${s === m.slot ? "selected" : ""}>${s}</option>`).join("");
+  } else {
+    const ev = (appState.academyEvents || []).find((x) => x.id === targetId);
+    if (!ev) return;
+    document.getElementById("rescheduleModalTitle").textContent = "Reagendar Turma do Aulao";
+    infoBox.innerHTML = `<strong>${ev.title}</strong><br /><span style="color: var(--text-secondary);">${ev.gym} | Turma atual: ${ev.date}</span>`;
+    const options = Array.from(new Set([...(ev.altDates || [ev.date]), "Sabado 16:00", "Domingo 11:00", "Quarta 19:30"]));
+    slotSelect.innerHTML = options.map((s) => `<option value="${s}" ${s === ev.date ? "selected" : ""}>${s}</option>`).join("");
+  }
+
+  document.getElementById("rescheduleModal").classList.add("open");
+}
+
+function closeRescheduleModal() {
+  document.getElementById("rescheduleModal").classList.remove("open");
+}
+
+function submitReschedule(e) {
+  e.preventDefault();
+  const type = document.getElementById("rescheduleType").value;
+  const targetId = document.getElementById("rescheduleTargetId").value;
+  const newSlot = document.getElementById("rescheduleSlotSelect").value;
+
+  if (type === "match") {
+    const m = appState.scheduledMatches.find((x) => x.id === targetId);
+    if (m) {
+      m.slot = newSlot;
+      m.status = "Reagendado";
+      saveState();
+      renderTatames();
+      showToast(`Sparring reagendado para ${newSlot}.`);
+    }
+  } else {
+    const ev = (appState.academyEvents || []).find((x) => x.id === targetId);
+    if (ev) {
+      ev.date = newSlot;
+      saveState();
+      renderTatames();
+      showToast(`Aulao reagendado para ${newSlot}.`);
+    }
+  }
+
+  closeRescheduleModal();
 }
 
 /* ==========================================================================
@@ -1408,8 +1510,10 @@ function submitNewAcademyEvent(e) {
     gym: appState.academyAccount.gymName,
     modality,
     date,
+    altDates: [date, "Sabado 16:00", "Domingo 11:00"],
     spots,
-    enrolled: 1
+    enrolled: 1,
+    enrolledByUser: false
   });
 
   saveState();

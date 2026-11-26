@@ -2,7 +2,7 @@
 
 Onde cada round conta.
 
-Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo SparRing, um ecossistema digital voltado para praticantes amadores, atletas de combate e academias de artes marciais. A plataforma conecta lutadores para sessoes de sparring com pareamento seguro por peso, graduacao e intensidade, ao mesmo tempo em que registra a evolucao tecnica em um Cartel Digital.
+Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo SparRing, um ecossistema digital voltado para praticantes amadores, atletas de combate e academias de artes marciais. A plataforma separa a experiencia em dois portais independentes acessados a partir da tela de login: o Portal do Lutador (B2C) e o Portal da Academia e Treinador (B2B), sincronizados pelo mesmo estado local.
 
 ## Problema Resolvido
 
@@ -11,37 +11,30 @@ Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo Sp
 - Evasao nas academias: reduz a desmotivacao de alunos apos 6 meses usando gamificacao e acompanhamento de progresso.
 - Estagnacao tecnica: facilita o intercambio seguro com parceiros de outras escolas e estilos de luta.
 
-## Funcionalidades Implementadas
+## Arquitetura em Dois Portais Separados
 
-### Tela de Login com Perfis B2C e B2B
+### Tela de Login (Selecao de Perfil)
 
-- Acesso Lutador (B2C): configuracao rapida de nome, modalidade principal e peso atual, abrindo diretamente o ambiente de matchmaking e cartel digital.
-- Acesso Academia ou Treinador (B2B): entrada direta no painel de gestao de tatame, validacao de alunos e monitoramento de evasao.
-- Troca de perfil imediata pela barra lateral para demonstracao dos dois fluxos.
+- Sou Lutador (B2C): abre exclusivamente o Portal do Lutador, com configuracao de nome, modalidade principal e peso atual.
+- Academia ou Treinador (B2B): abre exclusivamente o Portal da Academia, com menus e ferramentas dedicados ao mestre e gestor do centro de treinamento.
 
-### Modalidades Suportadas
+### Portal do Lutador (B2C)
 
-A plataforma contempla 11 modalidades de combate: Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo.
-
-### Area do Atleta (B2C)
-
-- Matchmaking Inteligente: filtros por modalidade, tolerancia de peso com alerta automatico de disparidade fisica, intensidade alvo (30% tecnico ate 90% combate) e pontuacao de compatibilidade.
+- Matchmaking Inteligente em 11 modalidades: Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo, com filtro seguro de peso, intensidade alvo e pontuacao de compatibilidade.
 - Cartel Digital: registro persistente (localStorage) de rounds, horas de treino, intensidade media, parceiros diferentes e streak de consistencia.
-- Card Compartilhavel: visualizacao e exportacao em imagem PNG (via HTML5 Canvas) no estilo Strava para compartilhamento em redes sociais.
-- Simulacao Freemium e Premium (R$ 14,90/mes): alternancia imediata entre os planos Free e Premium, liberando Insights de Oponente, Distribuicao Tecnica (Boxe, Chutes e Clinch), grafico de Rastreio de Fadiga contra Overtraining e filtros exclusivos por base (canhoto/destro) e nivel minimo.
-- Locacao de Tatames (Belo Horizonte): listagem de horarios ociosos em academias parceiras com calculo automatico de split de pagamento (taxa de intermediacao de 10% a 15%).
+- Card Compartilhavel: visualizacao e exportacao em imagem PNG (via HTML5 Canvas) no estilo Strava para redes sociais.
+- Simulacao Freemium e Premium (R$ 14,90/mes): alternancia entre Free e Premium desbloqueando Insights de Oponente, Distribuicao Tecnica, Rastreio de Fadiga contra Overtraining e filtros exclusivos por base e nivel minimo.
+- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte (com split automatico de 10% a 15%) e inscricao em auloes de intercambio.
+- Ajuda e Guia de Graduacoes: explicacao do nivelamento universal (N1 a N4), graus de Muay Thai (padrao CBMT de 9 graus de Kruang/Prajioud), faixas de Jiu-Jitsu (IBJJF/CBJJ), MMA, Sambo (FIAS), Capoeira, Boxe, Kickboxing, Judo, Wrestling, Karate e Taekwondo.
 
-### Aba de Ajuda e Guia de Graduacoes
+### Portal da Academia e Treinador (B2B)
 
-- Explicacao do sistema universal de nivelamento do SparRing (N1 Iniciante, N2 Intermediario, N3 Avancado e N4 Mestre ou Profissional).
-- Detalhamento visual dos graus e faixas adotados nas principais modalidades: Muay Thai (padrao CBMT de 9 graus de Kruang/Prajioud), Jiu-Jitsu (IBJJF/CBJJ), MMA (nivel competitivo), Sambo (FIAS Esportivo e Combat Sambo), Capoeira (equivalencia de cordas), Boxe, Kickboxing (CBKB), Judo, Wrestling, Karate e Taekwondo.
-- Guia de escala de intensidade combinada e regra de seguranca de diferenca de peso.
-
-### Painel de Academias e Mestres (B2B)
-
-- Validacao Tecnica: fila de aprovacao onde o mestre valida o peso e a graduacao declarados pelos alunos, garantindo integridade no matchmaking.
-- Ranking Interno e Monitoramento de Evasao: acompanhamento de rounds mensais, streak de assiduidade e sinalizacao de alunos com risco de evasao.
-- Visao de Negocio: painel com fontes de monetizacao (B2B, B2C, taxa de intermediacao e publicidade nativa), matriz competitiva e projecao financeira de 5 anos.
+- Visao Geral: painel de indicadores com alunos ativos, taxa de retencao de 6 meses, validacoes pendentes, receita liquida de tatames e alertas prioritarios.
+- Validar Alunos: fila para aprovar ou recusar peso e graduacao declarados, ativando automaticamente o selo Validado Mestre no Portal do Lutador.
+- Ranking e Evasao (Churn): monitoramento de assiduidade com filtro para alunos com risco de abandono e envio de lembrete de treino.
+- Gestao de Tatames: publicacao e remocao de horarios ociosos e valor por hora, sincronizados em tempo real com a vitrine dos lutadores.
+- Auloes e Intercambio: criacao de treinos coletivos abertos para captacao de novos alunos.
+- Ajuda e Modelo de Negocio: guia de graduacoes para referencia tecnica do mestre e visao executiva de monetizacao e projecao de 5 anos.
 
 ## Identidade Visual
 
@@ -57,12 +50,12 @@ A interface segue fielmente o esquema de cores da apresentacao do projeto:
 
 ```text
 sparring-app/
-├── index.html       # Tela de login B2C/B2B, secoes da aplicacao e modais
+├── index.html       # Tela de login, Portal do Lutador (B2C), Portal da Academia (B2B) e modais
 ├── css/
 │   └── styles.css   # Sistema visual SparRing e layout responsivo
 ├── js/
-│   ├── data.js      # Base de atletas nas 11 modalidades, academias de BH e guia de graduacoes
-│   └── app.js       # Logica de login, matchmaking, cartel, graficos SVG, canvas PNG, B2B e ajuda
+│   ├── data.js      # Base de atletas nas 11 modalidades, academias, eventos e guia de graduacoes
+│   └── app.js       # Logica independente dos dois portais com sincronizacao localStorage
 └── README.md        # Documentacao do projeto
 ```
 

@@ -1,11 +1,12 @@
-// SparRing Application Logic (Login B2C/B2B, Matchmaking 11 Modalidades, Cartel Digital, Premium, B2B, Ajuda)
+// SparRing Application Logic - Portais Separados: Lutador (B2C) e Academia / Treinador (B2B)
 
-const STORAGE_KEY = "sparring_mvp_state_v2";
+const STORAGE_KEY = "sparring_mvp_state_v3";
 
 let appState = loadState();
 let selectedSessionId = appState.sessions[0] ? appState.sessions[0].id : null;
 let selectedLoginRole = appState.userRole || "fighter";
 let selectedHelpModality = "Muay Thai";
+let retentionFilter = "all";
 
 function loadState() {
   try {
@@ -56,21 +57,17 @@ function populateModalitySelects() {
       mods.map((m) => `<option value="${m}">${m}</option>`).join("");
   }
 
-  const loginModEl = document.getElementById("loginFighterModality");
-  if (loginModEl) {
-    loginModEl.innerHTML = mods.map((m) => `<option value="${m}">${m}</option>`).join("");
-    loginModEl.value = appState.currentUser.modality || "Muay Thai";
-  }
-
-  const logModEl = document.getElementById("logModality");
-  if (logModEl) {
-    logModEl.innerHTML = mods.map((m) => `<option value="${m}">${m}</option>`).join("");
-    logModEl.value = appState.currentUser.modality || "Muay Thai";
-  }
+  ["loginFighterModality", "logModality", "eventModality"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = mods.map((m) => `<option value="${m}">${m}</option>`).join("");
+      el.value = appState.currentUser.modality || "Muay Thai";
+    }
+  });
 }
 
 /* ==========================================================================
-   LOGIN SCREEN (LUTADORES B2C E ACADEMIAS / TREINADORES B2B)
+   LOGIN SCREEN -> ABRE PORTAL LUTADOR (B2C) OU PORTAL ACADEMIA (B2B)
    ========================================================================== */
 function selectLoginRole(role) {
   selectedLoginRole = role;
@@ -86,8 +83,8 @@ function selectLoginRole(role) {
     ? "pedro.hipolito@sparring.app"
     : "contato@ctnovaerabh.com.br";
   document.getElementById("loginSubmitBtn").textContent = isFighter
-    ? "Entrar como Lutador"
-    : "Entrar como Academia / Treinador";
+    ? "Entrar no Portal do Lutador"
+    : "Entrar no Portal da Academia";
 }
 
 function handleLoginSubmit(e) {
@@ -103,74 +100,81 @@ function handleLoginSubmit(e) {
     appState.currentUser.initials = getInitials(name);
     appState.currentUser.modality = mod;
     appState.currentUser.weight = weight;
+    saveState();
+    openFighterPortal("matchmaking");
+    showToast(`Bem-vindo ao Portal do Lutador, ${appState.currentUser.name}.`);
   } else {
     const gymName = document.getElementById("loginGymName").value.trim() || "CT Nova Era BH";
     const coachName = document.getElementById("loginCoachName").value.trim() || "Mestre Ricardo Alves";
     appState.academyAccount.gymName = gymName;
     appState.academyAccount.coachName = coachName;
     appState.academyAccount.initials = getInitials(gymName);
+    saveState();
+    openAcademyPortal("overview");
+    showToast(`Portal B2B aberto para ${appState.academyAccount.gymName}.`);
   }
-
-  saveState();
-  enterAppShell(selectedLoginRole === "academy" ? "b2b" : "matchmaking");
-  showToast(
-    selectedLoginRole === "academy"
-      ? `Acesso B2B liberado para ${appState.academyAccount.gymName}.`
-      : `Bem-vindo ao tatame, ${appState.currentUser.name}.`
-  );
 }
 
 function quickOpenHelpFromLogin() {
   appState.isAuthenticated = true;
   appState.userRole = "fighter";
   saveState();
-  enterAppShell("help");
+  openFighterPortal("help");
 }
 
-function enterAppShell(initialView) {
+function openFighterPortal(initialView) {
   document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("appShell").classList.remove("hidden");
-  const mobileNav = document.getElementById("mobileNav");
-  if (mobileNav && window.innerWidth <= 860) {
-    mobileNav.style.display = "grid";
-  }
+  document.getElementById("academyShell").classList.add("hidden");
+  document.getElementById("fighterShell").classList.remove("hidden");
 
-  syncProfileHeader();
+  const mobAcademy = document.getElementById("mobileNavAcademy");
+  const mobFighter = document.getElementById("mobileNavFighter");
+  if (mobAcademy) mobAcademy.style.display = "none";
+  if (mobFighter) mobFighter.style.display = window.innerWidth <= 860 ? "grid" : "none";
+
+  document.getElementById("fighterAvatar").textContent = appState.currentUser.initials;
+  document.getElementById("fighterProfileName").textContent = appState.currentUser.name;
+  document.getElementById("fighterProfileMeta").textContent = `${appState.currentUser.weight}kg | ${appState.currentUser.modality}`;
+
   syncPlanUI();
   syncBadges();
-  switchView(initialView || (appState.userRole === "academy" ? "b2b" : "matchmaking"));
+  switchFighterView(initialView || "matchmaking");
+}
+
+function openAcademyPortal(initialView) {
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("fighterShell").classList.add("hidden");
+  document.getElementById("academyShell").classList.remove("hidden");
+
+  const mobFighter = document.getElementById("mobileNavFighter");
+  const mobAcademy = document.getElementById("mobileNavAcademy");
+  if (mobFighter) mobFighter.style.display = "none";
+  if (mobAcademy) mobAcademy.style.display = window.innerWidth <= 860 ? "grid" : "none";
+
+  document.getElementById("academyAvatar").textContent = appState.academyAccount.initials;
+  document.getElementById("academyProfileName").textContent = appState.academyAccount.gymName;
+  document.getElementById("academyProfileMeta").textContent = appState.academyAccount.coachName;
+  document.getElementById("b2bGymBadgeNote").textContent = `${appState.academyAccount.gymName} | Licenca Ativa`;
+
+  syncBadges();
+  switchAcademyView(initialView || "overview");
 }
 
 function logoutToLogin() {
   appState.isAuthenticated = false;
   saveState();
-  document.getElementById("appShell").classList.add("hidden");
+  document.getElementById("fighterShell").classList.add("hidden");
+  document.getElementById("academyShell").classList.add("hidden");
   document.getElementById("loginScreen").classList.remove("hidden");
-  const mobileNav = document.getElementById("mobileNav");
-  if (mobileNav) mobileNav.style.display = "none";
+  document.getElementById("mobileNavFighter").style.display = "none";
+  document.getElementById("mobileNavAcademy").style.display = "none";
   selectLoginRole(appState.userRole || "fighter");
 }
 
-function syncProfileHeader() {
-  const isAcademy = appState.userRole === "academy";
-  if (isAcademy) {
-    document.getElementById("headerAvatar").textContent = appState.academyAccount.initials;
-    document.getElementById("headerProfileName").textContent = appState.academyAccount.gymName;
-    document.getElementById("headerProfileMeta").textContent = `B2B | ${appState.academyAccount.coachName}`;
-    document.getElementById("headerStreakChip").style.display = "none";
-    document.getElementById("b2bGymBadgeNote").textContent = `${appState.academyAccount.gymName} | Licenca Mensal Ativa`;
-  } else {
-    document.getElementById("headerAvatar").textContent = appState.currentUser.initials;
-    document.getElementById("headerProfileName").textContent = appState.currentUser.name;
-    document.getElementById("headerProfileMeta").textContent = `${appState.currentUser.weight}kg | ${appState.currentUser.modality}`;
-    document.getElementById("headerStreakChip").style.display = "inline-flex";
-  }
-}
-
 /* ==========================================================================
-   NAVIGATION & PLAN SWITCHER
+   NAVIGATION: PORTAL DO LUTADOR (B2C)
    ========================================================================== */
-const VIEW_META = {
+const FIGHTER_VIEW_META = {
   matchmaking: {
     title: "Matchmaking Inteligente",
     subtitle: "Pareamento seguro por peso, graduacao e intensidade em 11 modalidades."
@@ -184,16 +188,63 @@ const VIEW_META = {
     subtitle: "Metricas avancadas do plano Premium para evolucao tecnica sem overtraining."
   },
   tatames: {
-    title: "Locacao de Tatames e Agendamentos",
-    subtitle: "Horarios ociosos em academias parceiras com split automatico de pagamento."
-  },
-  b2b: {
-    title: "Painel B2B Academias e Mestres",
-    subtitle: "Validacao de lutadores, ranking interno de assiduidade e controle de evasao."
+    title: "Tatames BH e Auloes Abertos",
+    subtitle: "Reserve horarios ociosos em academias parceiras e inscreva-se em intercambios."
   },
   help: {
     title: "Ajuda e Guia de Graduacoes",
     subtitle: "Entenda os graus de Muay Thai (CBMT), faixas de Jiu-Jitsu, MMA, Sambo, Capoeira e seguranca."
+  }
+};
+
+function switchFighterView(viewName) {
+  document.querySelectorAll("#fighterShell .view-section").forEach((sec) => {
+    sec.classList.toggle("active", sec.id === "fview-" + viewName);
+  });
+  document.querySelectorAll("[data-fighter-view]").forEach((btn) => {
+    btn.classList.toggle("active", btn.getAttribute("data-fighter-view") === viewName);
+  });
+
+  const meta = FIGHTER_VIEW_META[viewName];
+  if (meta) {
+    document.getElementById("fighterTopbarTitle").textContent = meta.title;
+    document.getElementById("fighterTopbarSubtitle").textContent = meta.subtitle;
+  }
+
+  if (viewName === "matchmaking") renderMatchmaking();
+  if (viewName === "cartel") renderCartel();
+  if (viewName === "analytics") renderAnalytics();
+  if (viewName === "tatames") renderTatames();
+  if (viewName === "help") renderHelpGuide("fighterHelpMount");
+}
+
+/* ==========================================================================
+   NAVIGATION: PORTAL DA ACADEMIA / TREINADOR (B2B)
+   ========================================================================== */
+const ACADEMY_VIEW_META = {
+  overview: {
+    title: "Visao Geral da Academia",
+    subtitle: "Indicadores de retencao, validacoes pendentes e receita de locacao de tatames."
+  },
+  validations: {
+    title: "Validacao Tecnica de Alunos",
+    subtitle: "Ateste peso e graduacao para manter a seguranca e a integridade do matchmaking."
+  },
+  retention: {
+    title: "Ranking Interno e Controle de Evasao",
+    subtitle: "Monitore assiduidade, streaks e reengaje alunos com risco de abandono."
+  },
+  slots: {
+    title: "Gestao de Tatames e Horarios Ociosos",
+    subtitle: "Publique horarios vazios na vitrine de BH com split automatico (88% Academia / 12% App)."
+  },
+  events: {
+    title: "Auloes e Intercambios entre Escolas",
+    subtitle: "Organize treinos coletivos abertos para captar novos alunos na regiao."
+  },
+  help: {
+    title: "Guia de Graduacoes e Nivelamento",
+    subtitle: "Referencia oficial de graus, faixas e equivalencias (N1 a N4) para validacoes do mestre."
   },
   business: {
     title: "Modelo de Negocio e Projecao",
@@ -201,26 +252,26 @@ const VIEW_META = {
   }
 };
 
-function switchView(viewName) {
-  document.querySelectorAll(".view-section").forEach((sec) => {
-    sec.classList.toggle("active", sec.id === "view-" + viewName);
+function switchAcademyView(viewName) {
+  document.querySelectorAll("#academyShell .view-section").forEach((sec) => {
+    sec.classList.toggle("active", sec.id === "aview-" + viewName);
   });
-  document.querySelectorAll(".nav-btn, .mobile-nav-btn").forEach((btn) => {
-    btn.classList.toggle("active", btn.getAttribute("data-view") === viewName);
+  document.querySelectorAll("[data-academy-view]").forEach((btn) => {
+    btn.classList.toggle("active", btn.getAttribute("data-academy-view") === viewName);
   });
 
-  const meta = VIEW_META[viewName];
+  const meta = ACADEMY_VIEW_META[viewName];
   if (meta) {
-    document.getElementById("topbarTitle").textContent = meta.title;
-    document.getElementById("topbarSubtitle").textContent = meta.subtitle;
+    document.getElementById("academyTopbarTitle").textContent = meta.title;
+    document.getElementById("academyTopbarSubtitle").textContent = meta.subtitle;
   }
 
-  if (viewName === "matchmaking") renderMatchmaking();
-  if (viewName === "cartel") renderCartel();
-  if (viewName === "analytics") renderAnalytics();
-  if (viewName === "tatames") renderTatames();
-  if (viewName === "b2b") renderB2B();
-  if (viewName === "help") renderHelpGuide();
+  if (viewName === "overview") renderAcademyOverview();
+  if (viewName === "validations") renderAcademyValidations();
+  if (viewName === "retention") renderAcademyRetention();
+  if (viewName === "slots") renderAcademySlots();
+  if (viewName === "events") renderAcademyEvents();
+  if (viewName === "help") renderHelpGuide("academyHelpMount");
 }
 
 function setPlan(plan) {
@@ -260,12 +311,15 @@ function syncBadges() {
   document.getElementById("headerStreakText").textContent = `${appState.currentUser.streakDays} DIAS STREAK`;
   document.getElementById("navSessionCount").textContent = appState.sessions.length;
   document.getElementById("navBookedCount").textContent = appState.scheduledMatches.length;
+
   const pendingCount = appState.b2bPendingValidations.filter((v) => v.status === "Pendente").length;
-  document.getElementById("navPendingVal").textContent = pendingCount;
+  const churnCount = appState.b2bStudents.filter((s) => s.status === "Risco de Evasao").length;
+  document.getElementById("navPendingValB2B").textContent = pendingCount;
+  document.getElementById("navChurnCountB2B").textContent = churnCount;
 }
 
 /* ==========================================================================
-   1. MATCHMAKING INTELIGENTE (11 MODALIDADES)
+   B2C: MATCHMAKING INTELIGENTE (11 MODALIDADES)
    ========================================================================== */
 function updateWeightFilterLabel() {
   const val = document.getElementById("filterWeightDiff").value;
@@ -516,7 +570,7 @@ function submitMatchBooking(e) {
 }
 
 /* ==========================================================================
-   2. CARTEL DIGITAL & CARD COMPARTILHAVEL (INSTAGRAM)
+   B2C: CARTEL DIGITAL & CARD COMPARTILHAVEL
    ========================================================================== */
 function renderCartel() {
   const totalRounds = appState.sessions.reduce((acc, s) => acc + s.rounds, 0);
@@ -554,8 +608,7 @@ function renderCartel() {
     selectedSessionId = appState.sessions[0].id;
   }
 
-  const tbody = document.getElementById("sessionsTableBody");
-  tbody.innerHTML = appState.sessions
+  document.getElementById("sessionsTableBody").innerHTML = appState.sessions
     .map((s) => {
       const isSelected = s.id === selectedSessionId;
       return `
@@ -568,9 +621,7 @@ function renderCartel() {
             </div>
           </td>
           <td class="mono" style="font-weight: 700;">${s.rounds} x ${s.roundMinutes || 3}m</td>
-          <td>
-            <span class="badge-pill ${s.intensity >= 80 ? "red" : "orange"} mono">${s.intensity}%</span>
-          </td>
+          <td><span class="badge-pill ${s.intensity >= 80 ? "red" : "orange"} mono">${s.intensity}%</span></td>
           <td>
             <button class="btn btn-sm ${isSelected ? "btn-primary" : ""}" onclick="selectSessionForCard('${s.id}')">
               ${isSelected ? "Ativo" : "Gerar Card"}
@@ -652,16 +703,10 @@ function downloadStoryCard() {
   ctx.strokeStyle = "#222222";
   ctx.lineWidth = 1;
   for (let x = 0; x <= W; x += 90) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, H);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
   }
   for (let y = 0; y <= H; y += 90) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(W, y);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
   }
 
   ctx.fillStyle = "#ff5500";
@@ -737,10 +782,7 @@ function downloadStoryCard() {
 
   ctx.strokeStyle = "#262626";
   ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(80, 1170);
-  ctx.lineTo(W - 80, 1170);
-  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(80, 1170); ctx.lineTo(W - 80, 1170); ctx.stroke();
 
   ctx.fillStyle = "#ff5500";
   ctx.font = "700 32px Inter, Arial, sans-serif";
@@ -757,9 +799,6 @@ function downloadStoryCard() {
   showToast("Card PNG exportado com sucesso.");
 }
 
-/* ==========================================================================
-   LOG NEW SESSION MODAL
-   ========================================================================== */
 function openLogModal() {
   document.getElementById("logModal").classList.add("open");
 }
@@ -806,12 +845,12 @@ function submitNewSession(e) {
   syncBadges();
   closeLogModal();
   document.getElementById("logForm").reset();
-  switchView("cartel");
+  switchFighterView("cartel");
   showToast("Sparring registrado no seu Cartel Digital.");
 }
 
 /* ==========================================================================
-   3. ANALISES PREMIUM (OPONENTE, DISTRIBUICAO TECNICA, FADIGA)
+   B2C: ANALISES PREMIUM
    ========================================================================== */
 function renderAnalytics() {
   const sessions = appState.sessions;
@@ -928,7 +967,7 @@ function renderAnalytics() {
 }
 
 /* ==========================================================================
-   4. LOCACAO DE TATAMES E AGENDAMENTOS
+   B2C: TATAMES E AULOES
    ========================================================================== */
 function renderTatames() {
   document.getElementById("gymsList").innerHTML = appState.gyms
@@ -965,23 +1004,40 @@ function renderTatames() {
 
   if (!appState.scheduledMatches.length) {
     listEl.innerHTML = `<div class="card" style="color: var(--text-muted); font-size: 0.84rem;">Nenhum sparring agendado no momento.</div>`;
-    return;
+  } else {
+    listEl.innerHTML = appState.scheduledMatches
+      .map(
+        (m) => `
+        <div class="card card-accent-left">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="font-size: 0.92rem;">${m.partnerName}</strong>
+            <span class="badge-pill green">${m.status}</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-secondary);">
+            ${m.modality} | ${m.gym} | <strong>${m.slot}</strong>
+          </div>
+          <div class="mono" style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px;">
+            ${m.rounds} rounds | Intensidade ${m.intensity}% | Locacao R$ ${m.totalPrice.toFixed(2)} (Taxa app R$ ${m.platformFee.toFixed(2)})
+          </div>
+        </div>
+      `
+      )
+      .join("");
   }
 
-  listEl.innerHTML = appState.scheduledMatches
+  document.getElementById("fighterEventsList").innerHTML = (appState.academyEvents || [])
     .map(
-      (m) => `
-      <div class="card card-accent-left">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <strong style="font-size: 0.92rem;">${m.partnerName}</strong>
-          <span class="badge-pill green">${m.status}</span>
+      (ev) => `
+      <div style="border: 1px solid var(--border-grid); padding: 14px; background: var(--bg-main); display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+            <span class="badge-pill orange">${ev.modality}</span>
+            <span class="mono" style="font-size: 0.72rem; color: var(--text-muted);">${ev.enrolled}/${ev.spots} inscritos</span>
+          </div>
+          <div style="font-weight: 800; font-size: 0.92rem; margin-top: 8px;">${ev.title}</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">${ev.gym} | ${ev.date}</div>
         </div>
-        <div style="font-size: 0.78rem; color: var(--text-secondary);">
-          ${m.modality} | ${m.gym} | <strong>${m.slot}</strong>
-        </div>
-        <div class="mono" style="font-size: 0.74rem; color: var(--text-muted); margin-top: 8px;">
-          ${m.rounds} rounds | Intensidade ${m.intensity}% | Locacao R$ ${m.totalPrice.toFixed(2)} (Taxa app R$ ${m.platformFee.toFixed(2)})
-        </div>
+        <button class="btn btn-primary btn-sm" onclick="enrollInEvent('${ev.id}')">Garantir Vaga</button>
       </div>
     `
     )
@@ -1010,32 +1066,97 @@ function quickBookMat(gymId, slot) {
   showToast(`Tatame reservado em ${gym.name} para ${slot}.`);
 }
 
-/* ==========================================================================
-   5. PAINEL B2B ACADEMIAS E MESTRES
-   ========================================================================== */
-function renderB2B() {
-  const pending = appState.b2bPendingValidations.filter((v) => v.status === "Pendente").length;
-  document.getElementById("b2bPendingCount").textContent = pending;
+function enrollInEvent(eventId) {
+  const ev = (appState.academyEvents || []).find((x) => x.id === eventId);
+  if (!ev) return;
+  if (ev.enrolled < ev.spots) {
+    ev.enrolled += 1;
+    saveState();
+    renderTatames();
+    showToast(`Vaga confirmada em: ${ev.title}.`);
+  } else {
+    showToast("Vagas esgotadas para este aulao.");
+  }
+}
 
+/* ==========================================================================
+   B2B PORTAL: VISAO GERAL, VALIDACOES, RETENCAO, TATAMES E AULOES
+   ========================================================================== */
+function getManagedGym() {
+  const targetName = appState.academyAccount.gymName;
+  let gym = appState.gyms.find((g) => g.name.toLowerCase() === targetName.toLowerCase());
+  if (!gym) {
+    gym = appState.gyms[1] || appState.gyms[0];
+    gym.name = targetName;
+  }
+  return gym;
+}
+
+function renderAcademyOverview() {
+  const pending = appState.b2bPendingValidations.filter((v) => v.status === "Pendente");
+  const churnRisk = appState.b2bStudents.filter((s) => s.status === "Risco de Evasao");
   const rentalNet = appState.scheduledMatches.reduce((acc, m) => acc + (m.totalPrice - m.platformFee), 475.2);
+
+  document.getElementById("b2bPendingCount").textContent = pending.length;
   document.getElementById("b2bRentalNet").textContent = `R$ ${rentalNet.toFixed(2).replace(".", ",")}`;
 
+  const alertsEl = document.getElementById("b2bOverviewAlerts");
+  const items = [];
+  if (pending.length > 0) {
+    items.push(`
+      <div style="border-left: 3px solid var(--accent-orange); padding: 10px 12px; background: var(--bg-main); font-size: 0.8rem;">
+        <strong>${pending.length} aluno(s) aguardando validacao de peso e graduacao.</strong><br />
+        <span style="color: var(--text-secondary);">Aprove na aba Validar Alunos para liberar o selo verificado no matchmaking.</span>
+      </div>
+    `);
+  }
+  if (churnRisk.length > 0) {
+    items.push(`
+      <div style="border-left: 3px solid var(--accent-red); padding: 10px 12px; background: var(--bg-main); font-size: 0.8rem;">
+        <strong>${churnRisk.length} aluno(s) com risco de evasao (mais de 14 dias sem treinar).</strong><br />
+        <span style="color: var(--text-secondary);">${churnRisk.map((c) => c.name).join(", ")}.</span>
+      </div>
+    `);
+  }
+  if (!items.length) {
+    items.push(`<div style="color: var(--text-secondary); font-size: 0.82rem;">Nenhum alerta pendente. Operacao da academia em dia.</div>`);
+  }
+  alertsEl.innerHTML = items.join("");
+
+  const bookingsEl = document.getElementById("b2bOverviewBookings");
+  bookingsEl.innerHTML = appState.scheduledMatches
+    .slice(0, 4)
+    .map(
+      (m) => `
+      <div style="border: 1px solid var(--border-grid); padding: 10px 12px; background: var(--bg-main); font-size: 0.78rem; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+        <div>
+          <div style="font-weight: 700;">${m.partnerName} (${m.modality})</div>
+          <div style="color: var(--text-secondary);">${m.gym} | ${m.slot}</div>
+        </div>
+        <span class="mono" style="color: var(--accent-orange); font-weight: 700;">+R$ ${(m.totalPrice - m.platformFee).toFixed(2)}</span>
+      </div>
+    `
+    )
+    .join("");
+}
+
+function renderAcademyValidations() {
   const valList = document.getElementById("b2bValidationsList");
   valList.innerHTML = appState.b2bPendingValidations
     .map((v) => {
       const isPending = v.status === "Pendente";
       return `
-        <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <div style="border: 1px solid var(--border-grid); padding: 14px; background: var(--bg-main); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
           <div>
-            <div style="font-weight: 700; font-size: 0.86rem;">${v.studentName} <span class="badge-pill" style="margin-left: 4px;">${v.modality}</span></div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary);">Peso declarado: <span class="mono">${v.declaredWeight}kg</span> | ${v.declaredRank}</div>
-            <div style="font-size: 0.7rem; color: var(--text-muted);">${v.requestedAt}</div>
+            <div style="font-weight: 700; font-size: 0.9rem;">${v.studentName} <span class="badge-pill orange" style="margin-left: 6px;">${v.modality}</span></div>
+            <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">Peso declarado: <span class="mono">${v.declaredWeight}kg</span> | Graduacao: ${v.declaredRank}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 2px;">Solicitado: ${v.requestedAt}</div>
           </div>
           <div style="display: flex; gap: 6px; align-items: center;">
             ${
               isPending
                 ? `
-                  <button class="btn btn-primary btn-sm" onclick="handleValidation('${v.id}', 'Validado')">Validar</button>
+                  <button class="btn btn-primary btn-sm" onclick="handleValidation('${v.id}', 'Validado')">Validar Selo</button>
                   <button class="btn btn-danger btn-sm" onclick="handleValidation('${v.id}', 'Ajustar')">Recusar</button>
                 `
                 : `<span class="badge-pill ${v.status === "Validado" ? "green" : "red"}">${v.status}</span>`
@@ -1044,24 +1165,6 @@ function renderB2B() {
         </div>
       `;
     })
-    .join("");
-
-  document.getElementById("b2bStudentsTableBody").innerHTML = appState.b2bStudents
-    .map(
-      (st) => `
-      <tr>
-        <td>
-          <div style="font-weight: 700;">${st.name}</div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">${st.modality} | Ultimo treino ha ${st.lastSeenDays}d</div>
-        </td>
-        <td class="mono" style="font-weight: 700;">${st.roundsMonth}</td>
-        <td class="mono">${st.streak}d</td>
-        <td>
-          <span class="badge-pill ${st.status === "Ativo" ? "green" : "red"}">${st.status}</span>
-        </td>
-      </tr>
-    `
-    )
     .join("");
 }
 
@@ -1077,28 +1180,159 @@ function handleValidation(valId, decision) {
 
   saveState();
   syncBadges();
-  renderB2B();
+  renderAcademyValidations();
   showToast(`Validacao de ${item.studentName}: ${decision}.`);
 }
 
+function setRetentionFilter(mode) {
+  retentionFilter = mode;
+  renderAcademyRetention();
+}
+
+function renderAcademyRetention() {
+  document.getElementById("churnFilterAll").className =
+    retentionFilter === "all" ? "btn btn-primary btn-sm" : "btn btn-sm";
+  document.getElementById("churnFilterRisk").className =
+    retentionFilter === "risk" ? "btn btn-primary btn-sm" : "btn btn-sm";
+
+  const list =
+    retentionFilter === "risk"
+      ? appState.b2bStudents.filter((s) => s.status === "Risco de Evasao")
+      : appState.b2bStudents;
+
+  document.getElementById("b2bStudentsTableBody").innerHTML = list
+    .map(
+      (st) => `
+      <tr>
+        <td>
+          <div style="font-weight: 700;">${st.name}</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">${st.modality} | Ultimo treino ha ${st.lastSeenDays} dias</div>
+        </td>
+        <td class="mono" style="font-weight: 700;">${st.roundsMonth}</td>
+        <td class="mono">${st.streak} dias</td>
+        <td><span class="badge-pill ${st.status === "Ativo" ? "green" : "red"}">${st.status}</span></td>
+        <td>
+          ${
+            st.status === "Risco de Evasao"
+              ? `<button class="btn btn-primary btn-sm" onclick="sendRetentionNudge('${st.name}')">Convidar para Treino</button>`
+              : `<span style="font-size: 0.74rem; color: var(--text-muted);">Engajado</span>`
+          }
+        </td>
+      </tr>
+    `
+    )
+    .join("");
+}
+
+function sendRetentionNudge(studentName) {
+  showToast(`Notificacao de convite para sparring enviada para ${studentName}.`);
+}
+
+function renderAcademySlots() {
+  const gym = getManagedGym();
+  const fee = +(gym.hourlyRate * (gym.takeRatePercent / 100)).toFixed(2);
+  const net = +(gym.hourlyRate - fee).toFixed(2);
+
+  document.getElementById("b2bSlotsList").innerHTML = gym.slots
+    .map(
+      (slot, idx) => `
+      <div style="border: 1px solid var(--border-grid); padding: 12px 14px; background: var(--bg-main); display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+        <div>
+          <div style="font-weight: 700; font-size: 0.88rem;">${slot}</div>
+          <div style="font-size: 0.74rem; color: var(--text-secondary);">
+            ${gym.spaceType} | Valor R$ ${gym.hourlyRate},00/h (Liquido academia: <span class="mono" style="color: var(--accent-orange);">R$ ${net.toFixed(2)}</span>)
+          </div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="removeGymSlot(${idx})">Remover</button>
+      </div>
+    `
+    )
+    .join("");
+}
+
+function submitNewGymSlot(e) {
+  e.preventDefault();
+  const gym = getManagedGym();
+  const slotLabel = document.getElementById("newSlotLabel").value.trim();
+  const price = Number(document.getElementById("newSlotPrice").value);
+  if (!slotLabel) return;
+
+  gym.slots.push(slotLabel);
+  gym.hourlyRate = price;
+  saveState();
+  document.getElementById("addSlotForm").reset();
+  document.getElementById("newSlotPrice").value = price;
+  renderAcademySlots();
+  showToast(`Horario ${slotLabel} publicado na vitrine B2C por R$ ${price},00/h.`);
+}
+
+function removeGymSlot(idx) {
+  const gym = getManagedGym();
+  gym.slots.splice(idx, 1);
+  saveState();
+  renderAcademySlots();
+  showToast("Horario removido da vitrine.");
+}
+
+function renderAcademyEvents() {
+  document.getElementById("b2bEventsList").innerHTML = (appState.academyEvents || [])
+    .map(
+      (ev) => `
+      <div style="border: 1px solid var(--border-grid); padding: 14px; background: var(--bg-main); display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <div>
+          <div style="font-weight: 700; font-size: 0.9rem;">${ev.title}</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 2px;">${ev.gym} | ${ev.modality} | ${ev.date}</div>
+        </div>
+        <span class="badge-pill orange mono">${ev.enrolled} / ${ev.spots} VAGAS</span>
+      </div>
+    `
+    )
+    .join("");
+}
+
+function submitNewAcademyEvent(e) {
+  e.preventDefault();
+  const title = document.getElementById("eventTitle").value.trim();
+  const modality = document.getElementById("eventModality").value;
+  const date = document.getElementById("eventDate").value.trim();
+  const spots = Number(document.getElementById("eventSpots").value);
+
+  appState.academyEvents = appState.academyEvents || [];
+  appState.academyEvents.unshift({
+    id: "ev_" + Date.now(),
+    title,
+    gym: appState.academyAccount.gymName,
+    modality,
+    date,
+    spots,
+    enrolled: 1
+  });
+
+  saveState();
+  document.getElementById("addEventForm").reset();
+  renderAcademyEvents();
+  showToast(`Aulao "${title}" publicado para os lutadores de BH.`);
+}
+
 /* ==========================================================================
-   6. AJUDA E GUIA DE GRADUACOES
+   AJUDA E GUIA DE GRADUACOES (COMPARTILHADO ENTRE OS DOIS PORTAIS)
    ========================================================================== */
-function renderHelpGuide() {
+function renderHelpGuide(mountId) {
+  const target = document.getElementById(mountId);
+  if (!target) return;
+
   const guide = window.SPARRING_GRADUATION_GUIDE;
   const keys = Object.keys(guide);
-  if (!guide[selectedHelpModality]) {
-    selectedHelpModality = keys[0];
-  }
+  if (!guide[selectedHelpModality]) selectedHelpModality = keys[0];
+  const current = guide[selectedHelpModality];
 
-  document.getElementById("helpModalityTabs").innerHTML = keys
+  const tabsHtml = keys
     .map(
       (k) =>
-        `<button class="help-tab-btn ${k === selectedHelpModality ? "active" : ""}" onclick="selectHelpModality('${k}')">${k}</button>`
+        `<button class="help-tab-btn ${k === selectedHelpModality ? "active" : ""}" onclick="selectHelpModality('${k}', '${mountId}')">${k}</button>`
     )
     .join("");
 
-  const current = guide[selectedHelpModality];
   const rowsHtml = current.ranks
     .map((r) => {
       const tipHtml = r.tip ? `<span class="belt-tip" style="background: ${r.tip};"></span>` : "";
@@ -1115,24 +1349,85 @@ function renderHelpGuide() {
     })
     .join("");
 
-  document.getElementById("helpModalityDetail").innerHTML = `
-    <div style="border-top: 1px solid var(--border-grid); padding-top: 16px;">
-      <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-orange); font-weight: 700;">
-        ${current.federation}
-      </div>
-      <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 8px 0 16px 0;">
-        ${current.overview}
+  target.innerHTML = `
+    <div class="card card-accent-left" style="margin-bottom: 20px;">
+      <div class="section-heading" style="margin-bottom: 8px;">Como funciona o Nivelamento Universal do SparRing (N1 a N4)</div>
+      <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 14px;">
+        Como cada arte marcial possui seu proprio sistema de faixas, cordas ou kruangs (e modalidades como Boxe, MMA, Wrestling e Sambo nao usam faixas coloridas), o SparRing adota os padroes oficiais de cada confederacao e traduz todos os atletas para 4 niveis equivalentes de seguranca no pareamento:
       </p>
-      <div style="display: grid; gap: 8px;">
-        ${rowsHtml}
+      <div class="kpi-grid" style="margin-bottom: 0;">
+        <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
+          <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N1 INICIANTE</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Sparring educativo 30% a 40%. Foco em controle, postura e seguranca sem impacto forte.</div>
+        </div>
+        <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
+          <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N2 INTERMEDIARIO</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Sparring tecnico 40% a 60%. Dominio de defesa, combinacoes e leitura de distancia.</div>
+        </div>
+        <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
+          <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N3 AVANCADO</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Ritmo competitivo 65% a 85%. Atletas graduados, amadores de campeonato e sparrings intensos.</div>
+        </div>
+        <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
+          <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N4 MESTRE / PRO</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Faixas pretas, Kruangs pretos, atletas profissionais e mestres habilitados a validar alunos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="section-header">
+        <div class="section-heading">Guia de Graduacoes por Modalidade</div>
+        <span class="badge-pill orange">SELECIONE A MODALIDADE</span>
+      </div>
+      <div class="help-tabs">${tabsHtml}</div>
+      <div style="border-top: 1px solid var(--border-grid); padding-top: 16px;">
+        <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-orange); font-weight: 700;">
+          ${current.federation}
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-secondary); margin: 8px 0 16px 0;">
+          ${current.overview}
+        </p>
+        <div style="display: grid; gap: 8px;">
+          ${rowsHtml}
+        </div>
+      </div>
+    </div>
+
+    <div class="equal-two-col">
+      <div class="card">
+        <div class="section-heading" style="margin-bottom: 10px;">Escala de Intensidade Combinada</div>
+        <div style="display: grid; gap: 10px; font-size: 0.8rem;">
+          <div style="border-left: 3px solid #22c55e; padding-left: 12px;">
+            <strong>30% a 40% (Tecnico / Educativo):</strong> foco total em timing, movimentacao, esquiva e toque leve.
+          </div>
+          <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
+            <strong>50% a 70% (Moderado / Condicional):</strong> ritmo constante, pressao controlada no corpo e pernas, com potencia reduzida na cabeca.
+          </div>
+          <div style="border-left: 3px solid var(--accent-red); padding-left: 12px;">
+            <strong>80% a 90% (Simulacao de Combate):</strong> preparacao para competicao. Exige equipamento completo e validacao de peso.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-heading" style="margin-bottom: 10px;">Regra de Seguranca de Peso e Validacao</div>
+        <div style="display: grid; gap: 10px; font-size: 0.8rem; color: var(--text-secondary);">
+          <p>
+            <strong style="color: var(--text-primary);">Tolerancia recomendada (ate 6 kg a 8 kg):</strong> mantem equilibrio real de inercia e forca de impacto, evitando o cenario classico de risco (70 kg contra 100 kg).
+          </p>
+          <p>
+            <strong style="color: var(--text-primary);">Selo Validado pelo Mestre:</strong> atletas com o selo verde tiveram seu peso e graduacao confirmados por uma academia parceira no Portal B2B.
+          </p>
+        </div>
       </div>
     </div>
   `;
 }
 
-function selectHelpModality(modKey) {
+function selectHelpModality(modKey, mountId) {
   selectedHelpModality = modKey;
-  renderHelpGuide();
+  renderHelpGuide(mountId);
 }
 
 /* ==========================================================================
@@ -1142,6 +1437,10 @@ window.addEventListener("DOMContentLoaded", () => {
   populateModalitySelects();
   selectLoginRole(appState.userRole || "fighter");
   if (appState.isAuthenticated) {
-    enterAppShell(appState.userRole === "academy" ? "b2b" : "matchmaking");
+    if (appState.userRole === "academy") {
+      openAcademyPortal("overview");
+    } else {
+      openFighterPortal("matchmaking");
+    }
   }
 });

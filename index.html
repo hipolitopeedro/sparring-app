@@ -16,7 +16,6 @@
   <!-- ====================================================================== -->
   <section id="loginScreen" class="login-screen">
     <div class="login-shell">
-      <!-- Left Identity Pane -->
       <div class="login-brand-pane">
         <div>
           <div class="login-logo">SparRing</div>
@@ -25,16 +24,16 @@
 
           <div class="login-pillars">
             <div class="login-pillar">
-              <div class="login-pillar-title">Matchmaking Seguro (11 Modalidades)</div>
-              <div class="login-pillar-desc">Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo.</div>
+              <div class="login-pillar-title">Portal do Lutador (B2C)</div>
+              <div class="login-pillar-desc">Matchmaking seguro em 11 modalidades, Cartel Digital, Card Instagram e metricas de fadiga.</div>
             </div>
             <div class="login-pillar">
-              <div class="login-pillar-title">Cartel Digital e Consistencia</div>
-              <div class="login-pillar-desc">Registre rounds, intensidade, foco tecnico e gere cards compartilhaveis estilo Strava.</div>
+              <div class="login-pillar-title">Portal da Academia e Treinador (B2B)</div>
+              <div class="login-pillar-desc">Ambiente exclusivo para validar alunos, acompanhar retencao/churn, gerir horarios ociosos e criar auloes.</div>
             </div>
             <div class="login-pillar">
-              <div class="login-pillar-title">Gestao B2B para Academias e Mestres</div>
-              <div class="login-pillar-desc">Validacao oficial de peso e graduacao, rankings internos e locacao de horarios ociosos de tatame.</div>
+              <div class="login-pillar-title">Ecossistema Sincronizado</div>
+              <div class="login-pillar-desc">Validacoes de mestres e horarios publicados no portal B2B refletem automaticamente para os atletas B2C.</div>
             </div>
           </div>
         </div>
@@ -44,27 +43,24 @@
         </div>
       </div>
 
-      <!-- Right Form Pane -->
       <div class="login-form-pane">
         <div style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-orange); font-weight: 700; margin-bottom: 6px;">
           Acesso a Plataforma
         </div>
-        <h1 style="font-size: 1.45rem; font-weight: 800; margin-bottom: 16px;">Selecione seu perfil de entrada</h1>
+        <h1 style="font-size: 1.45rem; font-weight: 800; margin-bottom: 16px;">Escolha qual ambiente deseja abrir</h1>
 
-        <!-- Role Switcher: Lutador vs Academia/Treinador -->
         <div class="role-switcher">
           <button type="button" id="roleTabFighter" class="role-tab active" onclick="selectLoginRole('fighter')">
             <span class="role-tab-title">Sou Lutador</span>
-            <span class="role-tab-sub">Conta Atleta (B2C)</span>
+            <span class="role-tab-sub">Portal Atleta (B2C)</span>
           </button>
           <button type="button" id="roleTabAcademy" class="role-tab" onclick="selectLoginRole('academy')">
             <span class="role-tab-title">Academia / Treinador</span>
-            <span class="role-tab-sub">Painel Gestor (B2B)</span>
+            <span class="role-tab-sub">Portal Gestor (B2B)</span>
           </button>
         </div>
 
         <form id="loginForm" onsubmit="handleLoginSubmit(event)" style="display: grid; gap: 13px;">
-          <!-- Fighter-specific fields -->
           <div id="loginFighterFields" style="display: grid; gap: 12px;">
             <div class="field-group">
               <label class="field-label" for="loginFighterName">Nome do Atleta</label>
@@ -82,7 +78,6 @@
             </div>
           </div>
 
-          <!-- Academy-specific fields -->
           <div id="loginAcademyFields" style="display: none; gap: 12px;">
             <div class="field-group">
               <label class="field-label" for="loginGymName">Nome da Academia / CT</label>
@@ -105,12 +100,12 @@
           </div>
 
           <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 4px;">
-            Entrar como Lutador
+            Entrar no Portal do Lutador
           </button>
 
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border-grid); font-size: 0.74rem; color: var(--text-muted);">
             <span>Acesso demonstracao pre-preenchido</span>
-            <button type="button" class="btn btn-sm" onclick="quickOpenHelpFromLogin()">Ver Guia de Graduacoes</button>
+            <button type="button" class="btn btn-sm" onclick="quickOpenHelpFromLogin()">Guia de Graduacoes</button>
           </div>
         </form>
       </div>
@@ -118,21 +113,20 @@
   </section>
 
   <!-- ====================================================================== -->
-  <!-- APLICACAO PRINCIPAL (DASHBOARD SHELL)                                  -->
+  <!-- PORTAL 1: APLICACAO DO LUTADOR (B2C)                                   -->
   <!-- ====================================================================== -->
-  <div id="appShell" class="app-shell hidden">
-    <!-- Desktop Sidebar -->
+  <div id="fighterShell" class="app-shell hidden">
     <aside class="sidebar">
       <div>
         <div class="brand-block">
           <div class="brand-title">SparRing</div>
           <div class="brand-bar"></div>
-          <div class="brand-tagline">Onde cada round conta.</div>
+          <div class="brand-tagline">Portal do Lutador (B2C)</div>
         </div>
 
-        <div class="nav-section-label">Atleta (B2C)</div>
+        <div class="nav-section-label">Treino e Evolucao</div>
         <nav class="nav-list">
-          <button class="nav-btn active" data-view="matchmaking" onclick="switchView('matchmaking')">
+          <button class="nav-btn active" data-fighter-view="matchmaking" onclick="switchFighterView('matchmaking')">
             <span class="nav-btn-left">
               <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               <span>Matchmaking</span>
@@ -140,7 +134,7 @@
             <span class="badge-pill orange" id="navMatchCount">14</span>
           </button>
 
-          <button class="nav-btn" data-view="cartel" onclick="switchView('cartel')">
+          <button class="nav-btn" data-fighter-view="cartel" onclick="switchFighterView('cartel')">
             <span class="nav-btn-left">
               <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
               <span>Cartel Digital</span>
@@ -148,7 +142,7 @@
             <span class="badge-pill" id="navSessionCount">5</span>
           </button>
 
-          <button class="nav-btn" data-view="analytics" onclick="switchView('analytics')">
+          <button class="nav-btn" data-fighter-view="analytics" onclick="switchFighterView('analytics')">
             <span class="nav-btn-left">
               <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
               <span>Insights e Fadiga</span>
@@ -156,47 +150,31 @@
             <span class="badge-pill orange">PRO</span>
           </button>
 
-          <button class="nav-btn" data-view="tatames" onclick="switchView('tatames')">
+          <button class="nav-btn" data-fighter-view="tatames" onclick="switchFighterView('tatames')">
             <span class="nav-btn-left">
               <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Tatames BH</span>
+              <span>Tatames e Auloes</span>
             </span>
             <span class="badge-pill" id="navBookedCount">1</span>
           </button>
         </nav>
 
-        <div class="nav-section-label">Ecossistema e Suporte</div>
+        <div class="nav-section-label">Suporte</div>
         <nav class="nav-list">
-          <button class="nav-btn" data-view="b2b" onclick="switchView('b2b')">
-            <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-              <span>Painel Academias</span>
-            </span>
-            <span class="badge-pill red" id="navPendingVal">3</span>
-          </button>
-
-          <button class="nav-btn" data-view="help" onclick="switchView('help')">
+          <button class="nav-btn" data-fighter-view="help" onclick="switchFighterView('help')">
             <span class="nav-btn-left">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               <span>Ajuda e Graus</span>
             </span>
             <span class="badge-pill">GUIA</span>
           </button>
-
-          <button class="nav-btn" data-view="business" onclick="switchView('business')">
-            <span class="nav-btn-left">
-              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              <span>Modelo de Negocio</span>
-            </span>
-          </button>
         </nav>
       </div>
 
       <div>
-        <!-- Freemium / Premium Mode Switcher -->
         <div class="plan-card">
           <div class="plan-card-header">
-            <span class="plan-card-title">Plano Ativo</span>
+            <span class="plan-card-title">Plano Atleta</span>
             <span class="badge-pill orange mono" id="sidebarPlanBadge">FREE</span>
           </div>
           <div style="font-size: 0.72rem; color: var(--text-muted);" id="sidebarPlanDesc">
@@ -214,18 +192,17 @@
       </div>
     </aside>
 
-    <!-- Main Workspace -->
     <div class="main-area">
       <header class="topbar">
         <div class="topbar-title-wrap">
-          <h1 id="topbarTitle">Matchmaking Inteligente</h1>
-          <div class="topbar-subtitle" id="topbarSubtitle">
-            Pareamento seguro por peso, graduacao e intensidade em Belo Horizonte.
+          <h1 id="fighterTopbarTitle">Matchmaking Inteligente</h1>
+          <div class="topbar-subtitle" id="fighterTopbarSubtitle">
+            Pareamento seguro por peso, graduacao e intensidade em 11 modalidades.
           </div>
         </div>
 
         <div class="topbar-right">
-          <div class="streak-chip mono" id="headerStreakChip" title="Streak de Consistencia ativo">
+          <div class="streak-chip mono" title="Streak de Consistencia ativo">
             <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
             <span id="headerStreakText">14 DIAS STREAK</span>
           </div>
@@ -235,25 +212,23 @@
           </button>
 
           <div class="athlete-chip">
-            <div class="avatar-square" id="headerAvatar">PH</div>
+            <div class="avatar-square" id="fighterAvatar">PH</div>
             <div>
-              <div style="font-weight: 700; line-height: 1.1;" id="headerProfileName">Pedro Hipolito</div>
-              <div class="mono" style="font-size: 0.7rem; color: var(--text-secondary);" id="headerProfileMeta">76kg | Muay Thai</div>
+              <div style="font-weight: 700; line-height: 1.1;" id="fighterProfileName">Pedro Hipolito</div>
+              <div class="mono" style="font-size: 0.7rem; color: var(--text-secondary);" id="fighterProfileMeta">76kg | Muay Thai</div>
             </div>
           </div>
         </div>
       </header>
 
       <main class="content-container">
-        <!-- ============================================================== -->
-        <!-- VIEW 1: MATCHMAKING INTELIGENTE                                -->
-        <!-- ============================================================== -->
-        <section id="view-matchmaking" class="view-section active">
+        <!-- FIGHTER VIEW 1: MATCHMAKING -->
+        <section id="fview-matchmaking" class="view-section active">
           <div class="filter-panel">
             <div class="section-header" style="margin-bottom: 14px;">
               <div class="section-heading">Filtros de Pareamento Tecnico (11 Modalidades)</div>
               <div style="display: flex; gap: 8px;">
-                <button class="btn btn-sm" onclick="switchView('help')">Entender Graduacoes</button>
+                <button class="btn btn-sm" onclick="switchFighterView('help')">Entender Graduacoes</button>
                 <button class="btn btn-sm" onclick="resetFilters()">Limpar Filtros</button>
               </div>
             </div>
@@ -310,10 +285,8 @@
           <div id="fightersGrid" class="fighters-grid"></div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 2: CARTEL DIGITAL & CARD COMPARTILHAVEL                   -->
-        <!-- ============================================================== -->
-        <section id="view-cartel" class="view-section">
+        <!-- FIGHTER VIEW 2: CARTEL DIGITAL -->
+        <section id="fview-cartel" class="view-section">
           <div class="kpi-grid" id="cartelKpis"></div>
 
           <div class="two-col">
@@ -349,10 +322,8 @@
           </div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 3: INSIGHTS DE OPONENTE, DISTRIBUICAO E FADIGA (PREMIUM)  -->
-        <!-- ============================================================== -->
-        <section id="view-analytics" class="view-section">
+        <!-- FIGHTER VIEW 3: ANALISES PREMIUM -->
+        <section id="fview-analytics" class="view-section">
           <div id="premiumAnalyticsWrapper" class="premium-wrapper premium-locked">
             <div class="premium-overlay" id="premiumLockOverlay">
               <div class="premium-box">
@@ -400,11 +371,9 @@
           </div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 4: LOCACAO DE TATAMES E AGENDAMENTOS                      -->
-        <!-- ============================================================== -->
-        <section id="view-tatames" class="view-section">
-          <div class="two-col">
+        <!-- FIGHTER VIEW 4: TATAMES E AULOES -->
+        <section id="fview-tatames" class="view-section">
+          <div class="two-col" style="margin-bottom: 20px;">
             <div>
               <div class="section-header">
                 <div class="section-heading">Academias Parceiras com Horarios Ociosos (BH)</div>
@@ -421,141 +390,306 @@
               <div id="scheduledMatchesList" style="display: grid; gap: 12px;"></div>
             </div>
           </div>
+
+          <div class="card">
+            <div class="section-header">
+              <div class="section-heading">Auloes e Intercambios Publicados pelas Academias</div>
+              <span class="badge-pill orange">EVENTOS ABERTOS</span>
+            </div>
+            <div id="fighterEventsList" class="equal-two-col"></div>
+          </div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 5: PAINEL B2B ACADEMIAS E MESTRES                         -->
-        <!-- ============================================================== -->
-        <section id="view-b2b" class="view-section">
+        <!-- FIGHTER VIEW 5: AJUDA E GRADUACOES -->
+        <section id="fview-help" class="view-section">
+          <div id="fighterHelpMount"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- PORTAL 2: APLICACAO EXCLUSIVA DA ACADEMIA / TREINADOR (B2B)            -->
+  <!-- ====================================================================== -->
+  <div id="academyShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div>
+        <div class="brand-block">
+          <div class="brand-title">SparRing</div>
+          <div class="brand-bar"></div>
+          <div class="brand-tagline">Portal Academia (B2B)</div>
+        </div>
+
+        <div class="nav-section-label">Gestao da Academia</div>
+        <nav class="nav-list">
+          <button class="nav-btn active" data-academy-view="overview" onclick="switchAcademyView('overview')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Visao Geral</span>
+            </span>
+          </button>
+
+          <button class="nav-btn" data-academy-view="validations" onclick="switchAcademyView('validations')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Validar Alunos</span>
+            </span>
+            <span class="badge-pill red" id="navPendingValB2B">3</span>
+          </button>
+
+          <button class="nav-btn" data-academy-view="retention" onclick="switchAcademyView('retention')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+              <span>Ranking e Evasao</span>
+            </span>
+            <span class="badge-pill red" id="navChurnCountB2B">2</span>
+          </button>
+
+          <button class="nav-btn" data-academy-view="slots" onclick="switchAcademyView('slots')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Gestao de Tatames</span>
+            </span>
+          </button>
+
+          <button class="nav-btn" data-academy-view="events" onclick="switchAcademyView('events')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Auloes e Intercambio</span>
+            </span>
+          </button>
+        </nav>
+
+        <div class="nav-section-label">Referencia e Negocio</div>
+        <nav class="nav-list">
+          <button class="nav-btn" data-academy-view="help" onclick="switchAcademyView('help')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Ajuda e Graus</span>
+            </span>
+            <span class="badge-pill">GUIA</span>
+          </button>
+
+          <button class="nav-btn" data-academy-view="business" onclick="switchAcademyView('business')">
+            <span class="nav-btn-left">
+              <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Modelo de Negocio</span>
+            </span>
+          </button>
+        </nav>
+      </div>
+
+      <div>
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <span class="plan-card-title">Licenca B2B</span>
+            <span class="badge-pill green mono">ATIVA</span>
+          </div>
+          <div class="mono" style="font-size: 1.05rem; font-weight: 800; color: var(--accent-orange);">R$ 89,90 /mes</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">
+            Painel completo, selo de validacao e vitrine regional em BH.
+          </div>
+        </div>
+
+        <button class="btn btn-sm" style="width: 100%; margin-top: 10px;" onclick="logoutToLogin()">
+          Trocar Perfil / Sair
+        </button>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="topbar-title-wrap">
+          <h1 id="academyTopbarTitle">Visao Geral da Academia</h1>
+          <div class="topbar-subtitle" id="academyTopbarSubtitle">
+            Controle de retencao, validacoes tecnicas e receita de locacao de tatames.
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="btn btn-primary btn-sm" onclick="switchAcademyView('slots')">
+            + Publicar Horario Livre
+          </button>
+
+          <div class="athlete-chip">
+            <div class="avatar-square" id="academyAvatar">NE</div>
+            <div>
+              <div style="font-weight: 700; line-height: 1.1;" id="academyProfileName">CT Nova Era BH</div>
+              <div class="mono" style="font-size: 0.7rem; color: var(--text-secondary);" id="academyProfileMeta">Mestre Ricardo Alves</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content-container">
+        <!-- B2B VIEW 1: VISAO GERAL -->
+        <section id="aview-overview" class="view-section active">
           <div class="kpi-grid">
-            <div class="card">
-              <div class="kpi-label">Plano B2B Academia</div>
-              <div class="kpi-value orange mono">R$ 89,90</div>
-              <div class="kpi-note" id="b2bGymBadgeNote">CT Nova Era BH | Licenca Mensal Ativa</div>
+            <div class="card card-accent-left">
+              <div class="kpi-label">Alunos Ativos no App</div>
+              <div class="kpi-value mono" id="b2bOverviewStudents">62</div>
+              <div class="kpi-note" id="b2bGymBadgeNote">CT Nova Era BH | Licenca Ativa</div>
             </div>
             <div class="card">
               <div class="kpi-label">Retencao 6 Meses</div>
-              <div class="kpi-value mono">87%</div>
-              <div class="kpi-note">Gamificacao reduz evasao de amadores</div>
+              <div class="kpi-value orange mono">87%</div>
+              <div class="kpi-note">+24% vs media de academias sem gamificacao</div>
             </div>
             <div class="card">
               <div class="kpi-label">Validacoes Pendentes</div>
               <div class="kpi-value mono" id="b2bPendingCount">3</div>
-              <div class="kpi-note">Atestado de peso e graduacao pelo mestre</div>
+              <div class="kpi-note">Peso e graduacao aguardando assinatura</div>
             </div>
             <div class="card">
               <div class="kpi-label">Receita Liquida Tatame</div>
               <div class="kpi-value mono" id="b2bRentalNet">R$ 528,00</div>
-              <div class="kpi-note">Apos taxa de intermediacao do app</div>
+              <div class="kpi-note">Repasse liquido apos taxa SparRing (12%)</div>
             </div>
           </div>
 
           <div class="equal-two-col">
             <div class="card">
               <div class="section-header">
-                <div class="section-heading">Fila de Validacao Tecnica (Mestre)</div>
-                <span class="badge-pill orange">INTEGRIDADE DE DADOS</span>
+                <div class="section-heading">Alertas Prioritarios do Mestre</div>
+                <button class="btn btn-sm" onclick="switchAcademyView('validations')">Ver Fila Completa</button>
+              </div>
+              <div id="b2bOverviewAlerts" style="display: grid; gap: 10px;"></div>
+            </div>
+
+            <div class="card">
+              <div class="section-header">
+                <div class="section-heading">Proximas Locacoes de Tatame</div>
+                <button class="btn btn-sm" onclick="switchAcademyView('slots')">Gerenciar Horarios</button>
+              </div>
+              <div id="b2bOverviewBookings" style="display: grid; gap: 10px;"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- B2B VIEW 2: VALIDACAO DE ALUNOS -->
+        <section id="aview-validations" class="view-section">
+          <div class="card">
+            <div class="section-header">
+              <div>
+                <div class="section-heading">Fila de Validacao Tecnica (Peso e Graduacao)</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px;">
+                  Ao aprovar um aluno aqui, o selo verde "Validado Mestre" e ativado imediatamente no Matchmaking B2C.
+                </div>
+              </div>
+              <span class="badge-pill orange">INTEGRIDADE DO TATAME</span>
+            </div>
+            <div id="b2bValidationsList" style="display: grid; gap: 10px;"></div>
+          </div>
+        </section>
+
+        <!-- B2B VIEW 3: RANKING E RETENCAO (CHURN) -->
+        <section id="aview-retention" class="view-section">
+          <div class="card">
+            <div class="section-header">
+              <div>
+                <div class="section-heading">Ranking Interno de Assiduidade e Alerta de Evasao</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px;">
+                  Identifique alunos amadores sem sparring ha mais de 14 dias antes que cancelem a mensalidade.
+                </div>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm" id="churnFilterAll" onclick="setRetentionFilter('all')">Todos</button>
+                <button class="btn btn-sm" id="churnFilterRisk" onclick="setRetentionFilter('risk')">Somente Risco</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Aluno / Modalidade</th>
+                    <th>Rounds no Mes</th>
+                    <th>Streak Atual</th>
+                    <th>Status</th>
+                    <th>Acao</th>
+                  </tr>
+                </thead>
+                <tbody id="b2bStudentsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- B2B VIEW 4: GESTAO DE TATAMES E HORARIOS OCIOSOS -->
+        <section id="aview-slots" class="view-section">
+          <div class="two-col">
+            <div class="card">
+              <div class="section-header">
+                <div class="section-heading">Horarios Ociosos Publicados pela Sua Academia</div>
+                <span class="badge-pill green">SINCRONIZADO COM B2C</span>
               </div>
               <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 14px;">
-                Confirme se o peso e a graduacao informados pelo aluno correspondem a realidade do tatame antes de liberar o selo verificado no Matchmaking.
+                Monetize horarios vazios entre aulas coletivas. O app retem 12% e transfere 88% automaticamente via gateway.
               </p>
-              <div id="b2bValidationsList" style="display: grid; gap: 10px;"></div>
+              <div id="b2bSlotsList" style="display: grid; gap: 10px;"></div>
             </div>
 
+            <div class="card card-accent-left">
+              <div class="section-heading" style="margin-bottom: 14px;">Publicar Novo Horario de Tatame</div>
+              <form id="addSlotForm" onsubmit="submitNewGymSlot(event)" style="display: grid; gap: 12px;">
+                <div class="field-group">
+                  <label class="field-label" for="newSlotLabel">Dia e Horario</label>
+                  <input type="text" id="newSlotLabel" class="input" placeholder="Ex: Sabado 15:00" required />
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="newSlotPrice">Valor por Hora (R$)</label>
+                  <input type="number" id="newSlotPrice" class="input mono" value="55" min="25" max="200" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Publicar na Vitrine BH</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- B2B VIEW 5: AULOES E INTERCAMBIO -->
+        <section id="aview-events" class="view-section">
+          <div class="two-col">
             <div class="card">
               <div class="section-header">
-                <div class="section-heading">Ranking Interno e Alerta de Evasao</div>
-                <span class="badge-pill red">MONITORAMENTO CHURN</span>
+                <div class="section-heading">Auloes e Seminarios de Intercambio</div>
+                <span class="badge-pill orange">CAPTACAO DE NOVOS ALUNOS</span>
               </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Aluno</th>
-                      <th>Rounds/Mes</th>
-                      <th>Streak</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="b2bStudentsTableBody"></tbody>
-                </table>
-              </div>
+              <div id="b2bEventsList" style="display: grid; gap: 12px;"></div>
+            </div>
+
+            <div class="card card-accent-left">
+              <div class="section-heading" style="margin-bottom: 14px;">Criar Novo Evento / Open Mat</div>
+              <form id="addEventForm" onsubmit="submitNewAcademyEvent(event)" style="display: grid; gap: 12px;">
+                <div class="field-group">
+                  <label class="field-label" for="eventTitle">Titulo do Evento</label>
+                  <input type="text" id="eventTitle" class="input" placeholder="Ex: Open Sparring Muay Thai e MMA" required />
+                </div>
+                <div class="equal-two-col" style="gap: 10px;">
+                  <div class="field-group">
+                    <label class="field-label" for="eventModality">Modalidade</label>
+                    <select id="eventModality" class="select"></select>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="eventDate">Data e Hora</label>
+                    <input type="text" id="eventDate" class="input" placeholder="Sabado 10:00" required />
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="eventSpots">Vagas Disponiveis</label>
+                  <input type="number" id="eventSpots" class="input mono" value="20" min="4" max="100" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Publicar para Atletas</button>
+              </form>
             </div>
           </div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 6: AJUDA E GUIA DE GRADUACOES                             -->
-        <!-- ============================================================== -->
-        <section id="view-help" class="view-section">
-          <div class="card card-accent-left" style="margin-bottom: 20px;">
-            <div class="section-heading" style="margin-bottom: 8px;">Como funciona o Nivelamento Universal do SparRing (N1 a N4)</div>
-            <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 14px;">
-              Como cada arte marcial possui seu proprio sistema de faixas, cordas ou kruangs (e modalidades como Boxe, MMA, Wrestling e Sambo nao usam faixas coloridas), o SparRing adota os padroes oficiais de cada confederacao e traduz todos os atletas para 4 niveis equivalentes de seguranca no pareamento:
-            </p>
-            <div class="kpi-grid" style="margin-bottom: 0;">
-              <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
-                <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N1 INICIANTE</div>
-                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Sparring educativo 30% a 40%. Foco em controle, postura e seguranca sem impacto forte.</div>
-              </div>
-              <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
-                <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N2 INTERMEDIARIO</div>
-                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Sparring tecnico 40% a 60%. Dominio de defesa, combinacoes e leitura de distancia.</div>
-              </div>
-              <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
-                <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N3 AVANCADO</div>
-                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Ritmo competitivo 65% a 85%. Atletas graduados, amadores de campeonato e sparrings intensos.</div>
-              </div>
-              <div style="border: 1px solid var(--border-grid); padding: 12px; background: var(--bg-main);">
-                <div class="mono" style="color: var(--accent-orange); font-weight: 800; font-size: 0.85rem;">N4 MESTRE / PRO</div>
-                <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Faixas pretas, Kruangs pretos, atletas profissionais e mestres habilitados a validar alunos.</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-bottom: 20px;">
-            <div class="section-header">
-              <div class="section-heading">Guia de Graduacoes por Modalidade</div>
-              <span class="badge-pill orange">SELECIONE A MODALIDADE</span>
-            </div>
-            <div id="helpModalityTabs" class="help-tabs"></div>
-            <div id="helpModalityDetail"></div>
-          </div>
-
-          <div class="equal-two-col">
-            <div class="card">
-              <div class="section-heading" style="margin-bottom: 10px;">Escala de Intensidade Combinada</div>
-              <div style="display: grid; gap: 10px; font-size: 0.8rem;">
-                <div style="border-left: 3px solid #22c55e; padding-left: 12px;">
-                  <strong>30% a 40% (Tecnico / Educativo):</strong> foco total em timing, movimentacao, esquiva e toque leve. Ideal para treinos longos sem desgaste articular.
-                </div>
-                <div style="border-left: 3px solid var(--accent-orange); padding-left: 12px;">
-                  <strong>50% a 70% (Moderado / Condicional):</strong> ritmo constante, pressao controlada no corpo e pernas, com potencia reduzida na cabeca.
-                </div>
-                <div style="border-left: 3px solid var(--accent-red); padding-left: 12px;">
-                  <strong>80% a 90% (Simulacao de Combate):</strong> preparacao para competicao. Exige equipamento completo (caneleira, protetor bucal, luva 16oz ou 7oz MMA) e validacao de peso.
-                </div>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="section-heading" style="margin-bottom: 10px;">Regra de Seguranca de Peso e Validacao</div>
-              <div style="display: grid; gap: 10px; font-size: 0.8rem; color: var(--text-secondary);">
-                <p>
-                  <strong style="color: var(--text-primary);">Tolerancia recomendada (ate 6 kg a 8 kg):</strong> mantem equilibrio real de inercia e forca de impacto, evitando o cenario classico de risco (70 kg contra 100 kg).
-                </p>
-                <p>
-                  <strong style="color: var(--text-primary);">Selo Validado pelo Mestre:</strong> atletas com o selo verde tiveram seu peso e graduacao confirmados por uma academia parceira no Painel B2B, eliminando perfis fora da realidade no tatame.
-                </p>
-              </div>
-            </div>
-          </div>
+        <!-- B2B VIEW 6: AJUDA E GRADUACOES -->
+        <section id="aview-help" class="view-section">
+          <div id="academyHelpMount"></div>
         </section>
 
-        <!-- ============================================================== -->
-        <!-- VIEW 7: MODELO DE NEGOCIO E PROJECAO 5 ANOS                    -->
-        <!-- ============================================================== -->
-        <section id="view-business" class="view-section">
+        <!-- B2B VIEW 7: MODELO DE NEGOCIO -->
+        <section id="aview-business" class="view-section">
           <div class="kpi-grid">
             <div class="card card-accent-left">
               <div class="kpi-label">Mercado Enderecavel (IBGE)</div>
@@ -615,36 +749,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Foco em Treinos</td>
-                      <td class="col-sparring">SIM</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                      <td style="color: var(--accent-orange);">SIM</td>
-                    </tr>
-                    <tr>
-                      <td>Matchmaking Inteligente</td>
-                      <td class="col-sparring">SIM</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                    </tr>
-                    <tr>
-                      <td>Cartel Digital e Dados</td>
-                      <td class="col-sparring">SIM</td>
-                      <td style="color: var(--accent-orange);">SIM</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                    </tr>
-                    <tr>
-                      <td>Seguranca (Pareamento)</td>
-                      <td class="col-sparring">SIM</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                    </tr>
-                    <tr>
-                      <td>Gamificacao Ativa</td>
-                      <td class="col-sparring">SIM</td>
-                      <td style="color: var(--accent-orange);">SIM</td>
-                      <td style="color: #ff5c66;">NAO</td>
-                    </tr>
+                    <tr><td>Foco em Treinos</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: var(--accent-orange);">SIM</td></tr>
+                    <tr><td>Matchmaking Inteligente</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
+                    <tr><td>Cartel Digital e Dados</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
+                    <tr><td>Seguranca (Pareamento)</td><td class="col-sparring">SIM</td><td style="color: #ff5c66;">NAO</td><td style="color: #ff5c66;">NAO</td></tr>
+                    <tr><td>Gamificacao Ativa</td><td class="col-sparring">SIM</td><td style="color: var(--accent-orange);">SIM</td><td style="color: #ff5c66;">NAO</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -656,44 +765,14 @@
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th>Periodo</th>
-                    <th>Foco Geografico</th>
-                    <th>Meta de Downloads</th>
-                    <th>Faturamento Estimado</th>
-                  </tr>
+                  <tr><th>Periodo</th><th>Foco Geografico</th><th>Meta de Downloads</th><th>Faturamento Estimado</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="mono" style="font-weight: 700;">Ano 1</td>
-                    <td>Belo Horizonte e Regiao Metropolitana</td>
-                    <td class="mono">3.000 a 7.000</td>
-                    <td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 30.000 a R$ 60.000</td>
-                  </tr>
-                  <tr>
-                    <td class="mono" style="font-weight: 700;">Ano 2</td>
-                    <td>Consolidacao MG + Lucros iniciais</td>
-                    <td class="mono">30.000 a 50.000</td>
-                    <td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 100.000 a R$ 140.000</td>
-                  </tr>
-                  <tr>
-                    <td class="mono" style="font-weight: 700;">Ano 3</td>
-                    <td>Expansao Sao Paulo e Rio de Janeiro</td>
-                    <td class="mono">150.000 a 250.000</td>
-                    <td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 600.000 a R$ 900.000</td>
-                  </tr>
-                  <tr>
-                    <td class="mono" style="font-weight: 700;">Ano 4</td>
-                    <td>Padrao no eixo Sul e Sudeste</td>
-                    <td class="mono">500.000 a 700.000</td>
-                    <td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 1.800.000 a R$ 2.500.000</td>
-                  </tr>
-                  <tr>
-                    <td class="mono" style="font-weight: 700;">Ano 5</td>
-                    <td>Dominio Nacional + Loja e Wearables</td>
-                    <td class="mono">1.000.000+</td>
-                    <td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 4.500.000+</td>
-                  </tr>
+                  <tr><td class="mono" style="font-weight: 700;">Ano 1</td><td>Belo Horizonte e Regiao Metropolitana</td><td class="mono">3.000 a 7.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 30.000 a R$ 60.000</td></tr>
+                  <tr><td class="mono" style="font-weight: 700;">Ano 2</td><td>Consolidacao MG + Lucros iniciais</td><td class="mono">30.000 a 50.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 100.000 a R$ 140.000</td></tr>
+                  <tr><td class="mono" style="font-weight: 700;">Ano 3</td><td>Expansao Sao Paulo e Rio de Janeiro</td><td class="mono">150.000 a 250.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 600.000 a R$ 900.000</td></tr>
+                  <tr><td class="mono" style="font-weight: 700;">Ano 4</td><td>Padrao no eixo Sul e Sudeste</td><td class="mono">500.000 a 700.000</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 1.800.000 a R$ 2.500.000</td></tr>
+                  <tr><td class="mono" style="font-weight: 700;">Ano 5</td><td>Dominio Nacional + Loja e Wearables</td><td class="mono">1.000.000+</td><td class="mono" style="color: var(--accent-orange); font-weight: 700;">R$ 4.500.000+</td></tr>
                 </tbody>
               </table>
             </div>
@@ -703,31 +782,51 @@
     </div>
   </div>
 
-  <!-- Mobile Bottom Navigation -->
-  <nav id="mobileNav" class="mobile-nav" style="display: none;">
-    <button class="mobile-nav-btn active" data-view="matchmaking" onclick="switchView('matchmaking')">
+  <!-- Mobile Bottom Navigation (Fighter) -->
+  <nav id="mobileNavFighter" class="mobile-nav" style="display: none; grid-template-columns: repeat(5, 1fr);">
+    <button class="mobile-nav-btn active" data-fighter-view="matchmaking" onclick="switchFighterView('matchmaking')">
       <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
       <span>Match</span>
     </button>
-    <button class="mobile-nav-btn" data-view="cartel" onclick="switchView('cartel')">
+    <button class="mobile-nav-btn" data-fighter-view="cartel" onclick="switchFighterView('cartel')">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 10h10"/><path d="M7 14h6"/></svg>
       <span>Cartel</span>
     </button>
-    <button class="mobile-nav-btn" data-view="analytics" onclick="switchView('analytics')">
+    <button class="mobile-nav-btn" data-fighter-view="analytics" onclick="switchFighterView('analytics')">
       <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
       <span>Pro</span>
     </button>
-    <button class="mobile-nav-btn" data-view="tatames" onclick="switchView('tatames')">
+    <button class="mobile-nav-btn" data-fighter-view="tatames" onclick="switchFighterView('tatames')">
       <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
       <span>Tatame</span>
     </button>
-    <button class="mobile-nav-btn" data-view="b2b" onclick="switchView('b2b')">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
-      <span>B2B</span>
-    </button>
-    <button class="mobile-nav-btn" data-view="help" onclick="switchView('help')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <button class="mobile-nav-btn" data-fighter-view="help" onclick="switchFighterView('help')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg>
       <span>Ajuda</span>
+    </button>
+  </nav>
+
+  <!-- Mobile Bottom Navigation (Academy B2B) -->
+  <nav id="mobileNavAcademy" class="mobile-nav" style="display: none; grid-template-columns: repeat(5, 1fr);">
+    <button class="mobile-nav-btn active" data-academy-view="overview" onclick="switchAcademyView('overview')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Geral</span>
+    </button>
+    <button class="mobile-nav-btn" data-academy-view="validations" onclick="switchAcademyView('validations')">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+      <span>Validar</span>
+    </button>
+    <button class="mobile-nav-btn" data-academy-view="retention" onclick="switchAcademyView('retention')">
+      <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span>Alunos</span>
+    </button>
+    <button class="mobile-nav-btn" data-academy-view="slots" onclick="switchAcademyView('slots')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Tatame</span>
+    </button>
+    <button class="mobile-nav-btn" data-academy-view="events" onclick="switchAcademyView('events')">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Auloes</span>
     </button>
   </nav>
 

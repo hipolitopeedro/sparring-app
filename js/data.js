@@ -608,5 +608,25 @@ window.SPARRING_DEFAULT_DATA = {
     { name: "Igor Volkov", modality: "Sambo", roundsMonth: 26, streak: 8, lastSeenDays: 3, status: "Ativo" },
     { name: "Carlos Eduardo", modality: "Boxe", roundsMonth: 6, streak: 0, lastSeenDays: 18, status: "Risco de Evasao" },
     { name: "Vinicius Lopes", modality: "Capoeira", roundsMonth: 4, streak: 0, lastSeenDays: 23, status: "Risco de Evasao" }
+  ],
+  academyEvents: [
+    {
+      id: "ev1",
+      title: "Aulao Intercambio Muay Thai e Boxe (30% a 60%)",
+      gym: "CT Nova Era BH",
+      modality: "Muay Thai",
+      date: "Sabado 10:00",
+      spots: 24,
+      enrolled: 16
+    },
+    {
+      id: "ev2",
+      title: "Open Mat MMA e Combat Sambo (Grade + Quedas)",
+      gym: "CT Buritis Strike",
+      modality: "MMA",
+      date: "Domingo 09:30",
+      spots: 16,
+      enrolled: 11
+    }
   ]
 };

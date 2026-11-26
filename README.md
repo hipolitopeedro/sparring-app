@@ -2,62 +2,62 @@
 
 Onde cada round conta.
 
-Aplicacao web interativa desenvolvida a partir do projeto de empreendedorismo SparRing, um ecossistema digital voltado para praticantes amadores, atletas de combate e academias de artes marciais. A plataforma conta com uma Homepage publica de apresentacao e modelo de negocio, telas de cadastro e login separadas e dois portais independentes: o Portal do Lutador (B2C) e o Portal da Academia e Treinador (B2B).
+Monorepo oficial do projeto de empreendedorismo SparRing, um ecossistema digital para praticantes amadores, atletas de combate e academias de artes marciais. O repositorio reune a aplicacao Web (Homepage publica, Portal do Lutador B2C e Portal da Academia B2B hospedados no GitHub Pages) e o aplicativo Mobile nativo em Flutter/Dart para Android (com compilacao automatica de APK via GitHub Actions).
 
-## Estrutura de Navegacao
-
-### Homepage Publica
-
-- Apresentacao da proposta de valor e do mercado enderecavel de 5 milhoes de praticantes no Brasil (IBGE).
-- Secao O Desafio (desorganizacao, risco de lesoes 70 kg vs 100 kg, evasao apos 6 meses e estagnacao tecnica) e A Solucao SparRing.
-- Modelo de Negocio e Planos (Lutador Free, Lutador Premium R$ 14,90/mes, Academia B2B R$ 89,90/mes e taxa de intermediacao de 10% a 15% na locacao de tatames), matriz competitiva e visao de futuro.
-- Botoes diretos para cadastro de lutador, cadastro de academia ou login.
-
-### Cadastro e Login Separados
-
-- Cadastro de Lutador (B2C): coleta nome completo, arte marcial (entre 11 modalidades), graduacao ou nivel (atualizado dinamicamente conforme a arte marcial escolhida), altura em cm, peso em kg, categoria (Amador ou Profissional), base (Canhoto ou Destro), bairro/cidade, e-mail e senha.
-- Cadastro de Academia ou Treinador (B2B): coleta nome da academia, mestre responsavel, bairro/cidade, estrutura de tatame/ringue, e-mail e senha.
-
-### Portal do Lutador (B2C)
-
-- Matchmaking Inteligente em 11 modalidades (Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo), com filtro de peso, alerta de disparidade fisica e pontuacao de compatibilidade.
-- Cartel Digital: registro persistente (localStorage) de rounds, horas de treino, intensidade media, streak de consistencia e exportacao de Card Compartilhavel em PNG.
-- Insights e Fadiga (Premium): Insights de Oponente, Distribuicao Tecnica (Boxe, Chutes e Clinch), grafico SVG de Rastreio de Fadiga contra Overtraining e filtros exclusivos por canhotos e nivel minimo.
-- Tatames e Auloes: reserva de horarios ociosos em academias de Belo Horizonte com split automatico, opcoes de reagendar ou cancelar sparrings e reservas, e inscricao em auloes com confirmacao visual verde e opcao de cancelar vaga.
-- Ajuda e Guia de Graduacoes: explicacao do nivelamento universal (N1 a N4), graus de Muay Thai (padrao CBMT de 9 graus de Kruang/Prajioud), faixas de Jiu-Jitsu (IBJJF/CBJJ), MMA, Sambo (FIAS), Capoeira, Boxe, Kickboxing, Judo, Wrestling, Karate e Taekwondo.
-
-### Portal da Academia e Treinador (B2B)
-
-- Visao Geral: indicadores de alunos ativos, retencao de 6 meses, validacoes pendentes, receita liquida de tatames e alertas prioritarios.
-- Validar Alunos: aprovacao de peso e graduacao que ativa o selo Validado Mestre no Portal do Lutador.
-- Ranking e Evasao (Churn): monitoramento de assiduidade com filtro de risco e convite rapido para reengajamento.
-- Gestao de Tatames: publicacao e remocao de horarios ociosos sincronizados com a vitrine B2C.
-- Auloes e Intercambio: criacao de treinos coletivos abertos para captacao de novos alunos.
-- Ajuda e Graus: guia oficial de graduacoes para referencia do treinador.
-
-## Identidade Visual
-
-A interface segue fielmente o esquema de cores da apresentacao do projeto:
-
-- Fundo principal: `#111111` com grade arquitetonica sutil (`#262626`)
-- Superficies e cards: `#171717` e `#1E1E1E`
-- Destaque primario: `#FF5500`
-- Alerta de risco e disparidade: `#D91E2A`
-- Tipografia: Inter e JetBrains Mono
-
-## Estrutura do Projeto
+## Estrutura do Monorepo
 
 ```text
 sparring-app/
-├── index.html       # Homepage publica, telas de cadastro/login, Portal B2C e Portal B2B
-├── css/
-│   └── styles.css   # Sistema visual SparRing e layout responsivo
-├── js/
-│   ├── data.js      # Base de atletas nas 11 modalidades, academias, eventos e guia de graduacoes
-│   └── app.js       # Logica da homepage, cadastros separados e sincronizacao entre portais
-└── README.md        # Documentacao do projeto
+├── index.html                           # Aplicacao Web: Homepage, Login/Cadastro e Portais B2C/B2B
+├── css/styles.css                       # Identidade visual SparRing (preto carbono e laranja)
+├── js/data.js                           # Base de dados nas 11 modalidades e guia de graduacoes
+├── js/app.js                            # Logica completa da versao Web
+├── mobile/                              # Aplicativo Mobile nativo em Flutter / Dart (Android Studio)
+│   ├── pubspec.yaml                     # Dependencias do app Flutter
+│   ├── android/                         # Projeto Android (com.sparring.app, Gradle KTS)
+│   ├── lib/
+│   │   ├── main.dart                    # Ponto de entrada e roteamento B2C / B2B
+│   │   ├── theme/sparring_theme.dart    # Tema Material 3 com a paleta dos slides
+│   │   ├── models/sparring_models.dart  # Modelos e guia oficial de graduacoes (11 modalidades)
+│   │   ├── data/sparring_store.dart     # Estado reativo, matchmaking e persistencia local
+│   │   ├── screens/auth_screen.dart     # Login e cadastro separado (Lutador e Academia)
+│   │   ├── screens/fighter_shell.dart   # Portal do Lutador (Match, Cartel, PRO, Tatames, Ajuda)
+│   │   ├── screens/academy_shell.dart   # Portal da Academia B2B (Validacoes, Churn, Tatames)
+│   │   └── widgets/help_guide_view.dart # Guia de graus (CBMT, IBJJF, MMA, Sambo, Capoeira)
+│   └── test/sparring_test.dart          # Testes unitarios e de widget
+└── .github/workflows/
+    └── build-android-apk.yml            # Pipeline automatico que analisa, testa e gera o APK Android
 ```
 
-## Como Executar Localmente
+## Funcionalidades Principais (Web e Mobile)
 
-Por ser uma aplicacao web estatica em HTML, CSS e JavaScript puro (sem dependencia de build), basta abrir o arquivo `index.html` diretamente no navegador ou servir a pasta com qualquer servidor HTTP local.
+- Dois portais independentes: Portal do Lutador (B2C) e Portal da Academia / Treinador (B2B), acessados por cadastros e logins separados.
+- Cadastro completo do lutador: nome, arte marcial (entre 11 modalidades), graduacao dinamica, altura, peso, categoria (Amador ou Profissional), base (Canhoto ou Destro) e bairro/cidade.
+- 11 modalidades suportadas: Muay Thai, MMA, Boxe, Jiu-Jitsu, Kickboxing, Sambo, Capoeira, Judo, Wrestling, Karate e Taekwondo.
+- Matchmaking seguro: filtro de tolerancia de peso com alerta automatico de disparidade fisica acima de 10 kg, intensidade alvo e pontuacao de compatibilidade.
+- Cartel Digital e Metricas Premium: registro de rounds, streak de consistencia, card compartilhavel estilo Strava, Insights de Oponente, Distribuicao Tecnica e grafico de Rastreio de Fadiga contra Overtraining.
+- Tatames e Auloes: reserva de horarios ociosos em academias com split automatico (10% a 15%), opcoes de reagendar ou cancelar sparrings, e inscricao em auloes com confirmacao visual verde e cancelamento de vaga.
+- Guia de Graduacoes: explicacao do nivelamento universal (N1 a N4) e das escalas adotadas (como o padrao brasileiro CBMT de 9 graus no Muay Thai e IBJJF no Jiu-Jitsu).
+
+## Como Rodar o App Mobile no Android Studio
+
+1. Clone o repositorio:
+
+```bash
+git clone https://github.com/hipolitopeedro/sparring-app.git
+```
+
+2. No Android Studio, clique em File -> Open e selecione a subpasta `sparring-app/mobile`.
+3. Execute `flutter pub get` e clique em Run para abrir no emulador ou celular Android.
+4. Para gerar o arquivo APK localmente:
+
+```bash
+cd mobile
+flutter build apk --release
+```
+
+Tambem e possivel baixar o arquivo `app-release.apk` compilado automaticamente na aba Actions do repositorio no GitHub (artefato `sparring-android-apk`).
+
+## Como Executar a Versao Web
+
+A versao web roda diretamente no GitHub Pages ou abrindo o arquivo `index.html` na raiz do repositorio em qualquer navegador moderno.
